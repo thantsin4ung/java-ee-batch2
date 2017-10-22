@@ -3,4 +3,26 @@
   <groupId>com.jdc.ee.b2</groupId>
   <artifactId>jpa-tutorial5</artifactId>
   <version>1.0</version>
+  <properties>
+  	<maven.compiler.source>1.8</maven.compiler.source>
+  	<maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>hibernate-core</artifactId>
+  		<version>5.2.10.Final</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>mysql</groupId>
+  		<artifactId>mysql-connector-java</artifactId>
+  		<version>6.0.6</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.12</version>
+  		<scope>test</scope>
+  	</dependency>
+  </dependencies>
 </project>
