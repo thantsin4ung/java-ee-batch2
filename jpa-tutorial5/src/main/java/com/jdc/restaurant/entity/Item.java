@@ -1,5 +1,8 @@
 package com.jdc.restaurant.entity;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
@@ -45,7 +48,7 @@ public class Item implements Serializable {
 	@ManyToOne
 	private Category category;
 
-	@OneToMany(mappedBy = "item")
+	@OneToMany(mappedBy = "item", cascade = { PERSIST, MERGE }, orphanRemoval = true, fetch = EAGER)
 	private List<ItemPrice> prices;
 
 	private Security security;

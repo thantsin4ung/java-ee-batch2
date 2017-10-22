@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.jdc.restaurant.RestaurantException;
 import com.jdc.restaurant.entity.Account;
 import com.jdc.restaurant.entity.Account.Role;
 import com.jdc.restaurant.service.AccountService;
@@ -55,4 +56,26 @@ public class AccountServiceTest {
 		Assert.assertNotNull(service.login(ac.getLogin(), ac.getPass()));
 	}
 
+	@Test(expected = RestaurantException.class)
+	public void test2() {
+		// TODO Login Not Same Login ID
+	}
+
+	@Test(expected = RestaurantException.class)
+	public void test3() {
+		// TODO Login Not Same Password
+	}
+
+	@Test
+	public void test4() {
+		// TODO Find By Role (Found Test Case)
+
+		// TODO Find By Role (Not Found Test Case)
+	}
+
+	@Test
+	public void test5() {
+		// TODO Update Consider about Before update and after update
+
+	}
 }
