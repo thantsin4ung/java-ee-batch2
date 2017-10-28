@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.jdc.restaurant.entity.Category;
-import com.jdc.restaurant.entity.Kitchen;
 
 public class CategoryService {
 
@@ -17,21 +16,22 @@ public class CategoryService {
 	}
 
 	public void create(Category category) {
-		// TODO Create operation
+		this.em.getTransaction().begin();
+		this.em.persist(category);
+		this.em.getTransaction().commit();
 	}
 
 	public void update(Category category) {
-		// TODO Update Operation
+		this.em.getTransaction().begin();
+		this.em.merge(category);
+		this.em.getTransaction().commit();
 	}
 
 	public Category findById(long id) {
-		// TODO Find By Id
-		return null;
+		return em.find(Category.class, id);
 	}
 
-	public List<Category> findByKitchen(Kitchen kitchen) {
-		// TODO Static Query findByKitchen
-
-		return null;
+	public List<Category> getAll() {
+		return em.createNamedQuery("Category.getAll", Category.class).getResultList();
 	}
 }

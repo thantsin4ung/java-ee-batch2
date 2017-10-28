@@ -8,12 +8,14 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 @Entity
 @SuppressWarnings("serial")
+@NamedQueries({ @NamedQuery(name = "Category.getAll", query = "select c from Category c") })
 public class Category implements Serializable {
 
 	public Category() {
@@ -39,9 +41,6 @@ public class Category implements Serializable {
 	private String name;
 
 	private String image;
-
-	@ManyToOne
-	private Kitchen kitchen;
 
 	private Security security;
 
@@ -69,14 +68,6 @@ public class Category implements Serializable {
 		this.image = image;
 	}
 
-	public Kitchen getKitchen() {
-		return kitchen;
-	}
-
-	public void setKitchen(Kitchen kitchen) {
-		this.kitchen = kitchen;
-	}
-
 	public Security getSecurity() {
 		return security;
 	}
@@ -91,7 +82,6 @@ public class Category implements Serializable {
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
-		result = prime * result + ((kitchen == null) ? 0 : kitchen.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((security == null) ? 0 : security.hashCode());
 		return result;
@@ -112,11 +102,6 @@ public class Category implements Serializable {
 			if (other.image != null)
 				return false;
 		} else if (!image.equals(other.image))
-			return false;
-		if (kitchen == null) {
-			if (other.kitchen != null)
-				return false;
-		} else if (!kitchen.equals(other.kitchen))
 			return false;
 		if (name == null) {
 			if (other.name != null)
