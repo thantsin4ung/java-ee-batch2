@@ -4,6 +4,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.MERGE;
+import javax.persistence.OneToMany;
 
 @Entity
 @SuppressWarnings("serial")
@@ -20,6 +25,7 @@ public class Order implements Serializable {
 
 	public Order() {
 		security = new Security();
+		orderList = new ArrayList<>();
 	}
 
 	@Id
@@ -28,16 +34,32 @@ public class Order implements Serializable {
 
 	private LocalDateTime odTime;
 
-	@ManyToOne
+	@ManyToOne(cascade = { PERSIST, MERGE })
 	private Bill bill;
 
+	@OneToMany(mappedBy = "order", cascade = { PERSIST, MERGE }, orphanRemoval = true)
+	private List<OrderDetails> orderList;
+
 	private Security security;
+
+	public void addOrder(OrderDetails od) {
+		od.setOrder(this);
+		this.orderList.add(od);
+	}
 
 	@PrePersist
 	private void prePersist() {
 		security.setDelFlag(false);
 		security.setCreation(LocalDateTime.now());
 		security.setModification(LocalDateTime.now());
+	}
+
+	public List<OrderDetails> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(List<OrderDetails> orderList) {
+		this.orderList = orderList;
 	}
 
 	@PreUpdate

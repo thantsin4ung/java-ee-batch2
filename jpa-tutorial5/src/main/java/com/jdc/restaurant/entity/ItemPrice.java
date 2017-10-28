@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @SuppressWarnings("serial")
@@ -31,6 +33,7 @@ public class ItemPrice implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 
 	private LocalDate refDate;

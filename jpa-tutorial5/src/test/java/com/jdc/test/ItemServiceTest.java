@@ -127,4 +127,34 @@ public class ItemServiceTest {
 		assertEquals(0, list3.size());
 	}
 
+	@Test
+	public void test4() {
+		Item item = new Item();
+		item.setCategory(c2);
+		item.setKitchen(k2);
+
+		item.setName("Cocala");
+		ItemPrice p = new ItemPrice();
+		p.setPrice(500);
+
+		item.addItemPrice(p);
+
+		service.create(item);
+
+		assertEquals(2L, item.getId());
+	}
+
+	@Test
+	public void test5() {
+		List<Item> list1 = service.findByCategoryAndKitchen(c2, k2);
+		assertEquals(2, list1.size());
+
+		Item item = service.findById(2L);
+		item.getSecurity().setDelFlag(true);
+		service.update(item);
+
+		List<Item> list2 = service.findByCategoryAndKitchen(c2, k2);
+		assertEquals(1, list2.size());
+	}
+
 }
