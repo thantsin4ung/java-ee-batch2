@@ -16,18 +16,19 @@ public class KitchenService {
 	}
 
 	public void create(Kitchen kitchen) {
-
+		this.em.getTransaction().begin();
+		this.em.persist(kitchen);
+		this.em.getTransaction().commit();
 	}
 
 	public void update(Kitchen kitchen) {
-
+		this.em.getTransaction().begin();
+		this.em.merge(kitchen);
+		this.em.getTransaction().commit();
 	}
 
 	public List<Kitchen> getAll() {
-
-		// TODO static query Kitchen.getAll
-
-		return null;
+		return this.em.createNamedQuery("Kitchen.getAll", Kitchen.class).getResultList();
 	}
 
 }

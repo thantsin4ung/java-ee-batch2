@@ -48,10 +48,21 @@ public class Item implements Serializable {
 	@ManyToOne
 	private Category category;
 
+	@ManyToOne
+	private Kitchen kitchen;
+
 	@OneToMany(mappedBy = "item", cascade = { PERSIST, MERGE }, orphanRemoval = true, fetch = EAGER)
 	private List<ItemPrice> prices;
 
 	private Security security;
+
+	public Kitchen getKitchen() {
+		return kitchen;
+	}
+
+	public void setKitchen(Kitchen kitchen) {
+		this.kitchen = kitchen;
+	}
 
 	public Security getSecurity() {
 		return security;

@@ -1,5 +1,7 @@
 package com.jdc.test;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -58,24 +60,31 @@ public class AccountServiceTest {
 
 	@Test(expected = RestaurantException.class)
 	public void test2() {
-		// TODO Login Not Same Login ID
+		service.login("bung", "Pass");
 	}
 
 	@Test(expected = RestaurantException.class)
 	public void test3() {
-		// TODO Login Not Same Password
+		service.login("Aung", "pass");
 	}
 
 	@Test
 	public void test4() {
-		// TODO Find By Role (Found Test Case)
+		// Find By Role (Found Test Case)
+		assertEquals(1, service.findByRole(Role.Admin).size());
 
-		// TODO Find By Role (Not Found Test Case)
+		// Find By Role (Not Found Test Case)
+		assertEquals(0, service.findByRole(Role.Counter).size());
 	}
 
 	@Test
 	public void test5() {
-		// TODO Update Consider about Before update and after update
+		// Update Consider about Before update and after update
+		Account ac = service.findByRole(Role.Admin).get(0);
+		ac.setRole(Role.Kitchen);
 
+		service.update(ac);
+
+		assertEquals(0, service.findByRole(Role.Admin).size());
 	}
 }

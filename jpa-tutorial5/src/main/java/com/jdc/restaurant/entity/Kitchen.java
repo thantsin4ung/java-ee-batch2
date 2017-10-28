@@ -7,9 +7,12 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
 @SuppressWarnings("serial")
+@NamedQueries({ @NamedQuery(name = "Kitchen.getAll", query = "select k from Kitchen k") })
 public class Kitchen implements Serializable {
 
 	public Kitchen() {

@@ -16,15 +16,18 @@ public class TableService {
 	}
 
 	public void create(Table table) {
-
+		this.em.getTransaction().begin();
+		this.em.persist(table);
+		this.em.getTransaction().commit();
 	}
 
 	public void update(Table table) {
-
+		this.em.getTransaction().begin();
+		this.em.merge(table);
+		this.em.getTransaction().commit();
 	}
 
 	public List<Table> getAll() {
-		// TODO Static Query getAll
-		return null;
+		return this.em.createNamedQuery("Table.getAll", Table.class).getResultList();
 	}
 }

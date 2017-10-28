@@ -1,8 +1,11 @@
 package com.jdc.restaurant.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import com.jdc.restaurant.entity.Category;
 import com.jdc.restaurant.entity.Item;
@@ -18,27 +21,50 @@ public class ItemService {
 	}
 
 	public void create(Item item) {
-		// TODO Consider About Item Prices
+		this.em.getTransaction().begin();
+		this.em.persist(item);
+		this.em.getTransaction().commit();
 	}
 
 	public void update(Item item) {
-		// TODO Consider About Item Prices
+		this.em.getTransaction().begin();
+		this.em.merge(item);
+		this.em.getTransaction().commit();
 	}
 
 	public Item findById(long id) {
-		return null;
+		return this.em.find(Item.class, id);
 	}
 
 	public List<Item> findByCategory(Category cat) {
-		// TODO Static Query Item.findByCategory
-
-		return null;
+		return this.findByCategoryAndKitchen(cat, null);
 	}
 
 	public List<Item> findByKitchen(Kitchen k) {
-		// TODO Static Query Item.findByKitchen
-
-		return null;
+		return this.findByCategoryAndKitchen(null, k);
 	}
 
+	public List<Item> findByCategoryAndKitchen(Category c, Kitchen k) {
+
+		StringBuffer sb = new StringBuffer("select i from Item i where i.security.delFlag = true ");
+		Map<String, Object> params = new HashMap<>();
+
+		if (null != c) {
+			sb.append("and i.category = :category ");
+			params.put("category", c);
+		}
+
+		if (k != null) {
+			sb.append("and i.kitchen = :kitchen ");
+			params.put("kitchen", k);
+		}
+
+		TypedQuery<Item> q = em.createQuery(sb.toString(), Item.class);
+
+		for (String key : params.keySet()) {
+			q.setParameter(key, params.get(key));
+		}
+
+		return q.getResultList();
+	}
 }
