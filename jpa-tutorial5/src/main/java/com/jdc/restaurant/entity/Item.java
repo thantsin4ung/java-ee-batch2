@@ -7,6 +7,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ public class Item implements Serializable {
 
 	public Item() {
 		security = new Security();
+		prices = new ArrayList<>();
 	}
 
 	@PrePersist
@@ -55,6 +57,11 @@ public class Item implements Serializable {
 	private List<ItemPrice> prices;
 
 	private Security security;
+
+	public void addItemPrice(ItemPrice p) {
+		prices.add(p);
+		p.setItem(this);
+	}
 
 	public Kitchen getKitchen() {
 		return kitchen;

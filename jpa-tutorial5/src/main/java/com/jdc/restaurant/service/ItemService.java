@@ -46,7 +46,7 @@ public class ItemService {
 
 	public List<Item> findByCategoryAndKitchen(Category c, Kitchen k) {
 
-		StringBuffer sb = new StringBuffer("select i from Item i where i.security.delFlag = true ");
+		StringBuffer sb = new StringBuffer("select i from Item i where i.security.delFlag = false ");
 		Map<String, Object> params = new HashMap<>();
 
 		if (null != c) {
