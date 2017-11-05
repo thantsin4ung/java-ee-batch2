@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Data Table</title>
+</h:head> 
+<body> 
+
+	<h1>Data Table</h1>
+
+	<div>
+		<h:dataTable value="#{studentModel.list}" var="s">
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:outputText value="#{s.name}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Phone</f:facet>
+				<h:outputText value="#{s.phone}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{s.email}"/>
+			</h:column>
+		</h:dataTable>
+		
+	
+	</div>
+	
+	<h3>UI Repeat</h3>
+	
+	<ul>
+		<ui:repeat var="s" value="#{studentModel.list}">
+				
+			<li><h:outputText value="#{s.name}" /> </li>
+					
+		</ui:repeat>
+	
+	</ul>
+	
+	<h:button outcome="/index" value="Home"/>
+</body> 
+</html>

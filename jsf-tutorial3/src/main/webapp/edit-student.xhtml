@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Add Student</title>
+</h:head> 
+<body> 
+	<h1>Add Student</h1>
+	
+	<h:form>
+		
+		<h:panelGrid columns="2">
+			
+			<h:outputLabel value="Name" />
+			<h:inputText value="#{editStudentModel.student.name}" />
+			
+			<h:outputLabel value="Gender" />
+			<h:selectOneRadio value="#{editStudentModel.student.gender}">
+				<f:selectItems value="#{genders}" var="g" itemLabel="#{g}" itemValue="#{g}" />
+			</h:selectOneRadio>
+			
+			<h:outputLabel value="Date of Birth"  />
+			<h:inputText value="#{editStudentModel.student.dob}" converter="#{localDateConverter}" />
+			
+			<h:outputLabel value="Phone" />
+			<h:inputText value="#{editStudentModel.student.phone}" />
+			
+			<h:outputLabel value="Course" />
+			<h:selectOneMenu value="#{editStudentModel.student.course}">
+				<f:selectItems value="#{courses}" var="c" itemLabel="#{c}" itemValue="#{c}" />
+			</h:selectOneMenu>
+			
+			<h:panelGroup></h:panelGroup>
+			<h:panelGroup>
+				<button type="reset">Clear</button>
+				<h:commandButton action="#{editStudentModel.addStudent()}" value="Add Student" />
+			</h:panelGroup>
+			
+		</h:panelGrid>
+		
+	</h:form>
+</body> 
+</html>

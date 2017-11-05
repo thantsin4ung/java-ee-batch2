@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Text Outputs</title>
+</h:head> 
+<body> 
+
+	<h1>Text Outputs</h1>
+
+	<div>
+	
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Output Label">
+			</h:outputLabel>
+			<h:outputLabel value="#{textBean.label}">
+			</h:outputLabel>
+
+			<h:outputLabel value="Output Format">
+			</h:outputLabel>
+			<h:outputFormat value="Format {0} is value {1}" >
+				<f:param value="#{textBean.param1}" />
+				<f:param value="#{textBean.param2}" />
+			</h:outputFormat>
+			
+			<h:outputLabel value="Output Text">
+			</h:outputLabel>
+			<h:outputText value="#{textBean.text}" />
+		</h:panelGrid>
+	
+	</div>
+	
+	<h:button outcome="/index" value="Home"/>
+</body> 
+</html>
