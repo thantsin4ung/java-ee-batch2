@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Home | Ask Me Quick</title>
+	<link href="resources/style/common.css" rel="stylesheet" type="text/css"/>
+	<h:outputStylesheet library="style" name="common.css" />
+</h:head> 
+<body> 
+	
+	<h1>Ask Me Quick</h1>
+	
+	<div>
+		<h:link value="Sign Up" outcome="/signup" styleClass="MarRight10" />
+		<h:link value="Login" outcome="/login" styleClass="MarRight10" />
+		<h:link value="Ask Question" outcome="/views/post-add" />
+	</div>
+	
+	<h:dataTable value="#{homeBean.posts}" var="p">
+		
+		<h:column>
+			<f:facet name="header">Title</f:facet>
+			<h:outputText value="#{p.title}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">User</f:facet>
+			<h:outputText value="#{p.owner.name}" />
+		</h:column>
+		
+	</h:dataTable>
+</body> 
+</html>

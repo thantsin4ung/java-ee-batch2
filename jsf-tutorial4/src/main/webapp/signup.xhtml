@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Sign Up | Ask Me Quick</title>
+</h:head> 
+<body> 
+	
+	<h1>Ask Me Quick Sign Up</h1>
+	
+	<h:form>
+		<h:panelGrid columns="3">
+			
+			<h:outputLabel value="Name" />			
+			<h:inputText value="#{securityBean.name}" id="name" required="true" 
+				requiredMessage="Please Enter Your Name" />
+			<h:message for="name" />
+
+			<h:outputLabel value="Login ID" />			
+			<h:inputText value="#{securityBean.loginId}" id="loginId" required="true" 
+				requiredMessage="Please Enter Login Id" />
+			<h:message for="loginId" />
+			
+			<h:outputLabel value="Password" />			
+			<h:inputSecret value="#{securityBean.password}" id="password" required="true" 
+				requiredMessage="Please Enter Password" />
+			<h:message for="password" />
+			
+			<h:panelGroup></h:panelGroup>
+			<h:panelGroup>
+				<h:button value="Log In" outcome="/login" />
+				<h:commandButton action="#{securityBean.signUp()}" value="Sign Up" />
+			</h:panelGroup>
+			
+		</h:panelGrid>
+	</h:form>
+</body> 
+</html>
