@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Scopes</title>
+</h:head> 
+<body> 
+	<h1>Scopes</h1>
+	
+	<h:panelGrid columns="2">
+		
+		<h:outputLabel value="Request" />
+		<h:outputText value="#{requestCounter.counter.count}" />
+		
+		<h:outputLabel value="View" />
+		<h:outputText value="#{viewCounter.counter.count}" />
+
+		<h:outputLabel value="Session" />
+		<h:outputText value="#{sessionCounter.counter.count}" />
+
+		<h:outputLabel value="Application" />
+		<h:outputText value="#{applicationCounter.counter.count}" />
+	
+	</h:panelGrid>
+	
+	<h:form>
+		<h:commandButton action="#{scopeTestBean.countUp()}" value="Count Up" />
+		<h:commandButton action="#{scopeTestBean.logout()}" value="Clear Session" />
+		<h:button value="Next Page" outcome="/page2"></h:button>
+	</h:form>
+</body> 
+</html>
