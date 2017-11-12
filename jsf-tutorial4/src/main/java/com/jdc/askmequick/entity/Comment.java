@@ -1,17 +1,43 @@
 package com.jdc.askmequick.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Lob;
+
+@Entity
 public class Comment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
+	@Lob
 	private String comment;
+	@ManyToOne
 	private User owner;
+	@ManyToOne
 	private Post post;
+	@ManyToOne
 	private Comment parent;
 	private Security security;
+
+	public Comment() {
+		security = new Security();
+	}
+
+	@PrePersist
+	private void prePersist() {
+		security.setCreation(LocalDateTime.now());
+		security.setModification(LocalDateTime.now());
+	}
 
 	public Security getSecurity() {
 		return security;

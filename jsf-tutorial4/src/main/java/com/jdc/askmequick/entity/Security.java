@@ -3,6 +3,9 @@ package com.jdc.askmequick.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Security implements Serializable {
 
 	private static final long serialVersionUID = 1L;

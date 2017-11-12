@@ -23,6 +23,8 @@ public class PostEditBean {
 	}
 
 	public String save() {
+		String loginId = post.getOwner().getName().replaceAll(" ", "").toLowerCase();
+		post.getOwner().setLoginId(loginId);
 		service.add(post);
 		return "/home?faces-redirect=true";
 	}

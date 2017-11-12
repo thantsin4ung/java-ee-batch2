@@ -1,29 +1,27 @@
 package com.jdc.askmequick.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.jdc.askmequick.entity.Post;
 
-@ApplicationScoped
+@Stateless
+@LocalBean
 public class PostService {
 
-	private List<Post> posts;
-
-	@PostConstruct
-	private void init() {
-		posts = new ArrayList<>();
-	}
+	@PersistenceContext
+	private EntityManager em;
 
 	public void add(Post post) {
-		posts.add(post);
+		em.persist(post);
 	}
 
 	public List<Post> getAll() {
-		return posts;
+		return em.createNamedQuery("Post.getAll", Post.class).getResultList();
 	}
 
 }

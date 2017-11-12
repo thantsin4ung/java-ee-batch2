@@ -1,23 +1,51 @@
 package com.jdc.askmequick.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ElementCollection;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.Lob;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.MERGE;
+
+@Entity
+@NamedQuery(name = "Post.getAll", query = "select p from Post p")
 public class Post implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 	private String title;
+	@Lob
 	private String body;
+	@ManyToOne(cascade = { PERSIST, MERGE })
 	private User owner;
+	@ManyToOne
 	private Category category;
+	@ElementCollection
 	private List<String> tags;
 
 	public Post() {
 		owner = new User();
 		tags = new ArrayList<>();
+		security = new Security();
+	}
+
+	@PrePersist
+	private void prePersist() {
+		security.setCreation(LocalDateTime.now());
+		security.setModification(LocalDateTime.now());
 	}
 
 	private Security security;
