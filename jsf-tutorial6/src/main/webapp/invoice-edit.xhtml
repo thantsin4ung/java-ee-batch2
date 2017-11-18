@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>#{invoiceBean.title}</title>
+</h:head> 
+<body> 
+	<h1>#{invoiceBean.title}</h1>
+	
+	<h:form>
+		<h:panelGrid columns="2">
+			
+			<h:outputLabel value="Customer Name" />
+			<h:inputText value="#{invoiceBean.invoice.customer}" readonly="#{not invoiceBean.edit}" />
+			
+			<h:panelGroup>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			
+				<table>
+					<thead>
+						<tr>
+							<th>Item Name</th>
+							<th>Unit Price</th>
+							<th>Quantity</th>
+							<th>Total</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat var="item" value="#{invoiceBean.invoice.items}">
+							<tr>
+								<td>
+									<h:inputText value="#{item.item}" readonly="#{not invoiceBean.edit}" />
+								</td>
+								<td>
+									<h:inputText value="#{item.unitPrice}" readonly="#{not invoiceBean.edit}" >
+										<f:ajax execute="@form" render="@form"></f:ajax>
+									</h:inputText>
+								</td>
+								<td>
+									<h:inputText value="#{item.quantity}" readonly="#{not invoiceBean.edit}" >
+										<f:ajax execute="@form" render="@form"></f:ajax>
+									</h:inputText>
+								</td>
+								<td>
+									<h:inputText value="#{item.total}" disabled="true" />
+								</td>
+								<td>
+									<h:commandButton value="Delete">
+										<f:ajax execute="@this" render="@form" listener="#{invoiceBean.removeItem(item)}"></f:ajax>
+									</h:commandButton>
+								</td>
+							</tr>
+						</ui:repeat>
+					
+					</tbody>
+				</table>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{invoiceBean.edit}">
+				<h:commandButton value="Add New Item" >
+					<f:ajax execute="@form" render="@form" listener="#{invoiceBean.addItem()}"></f:ajax>
+				</h:commandButton>
+				<h:commandButton action="#{invoiceBean.save()}" value="Save" />
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{not invoiceBean.edit}">
+				<h:button outcome="/invoice-list" value="Invoice List" />
+			</h:panelGroup>
+			
+
+		</h:panelGrid>
+	</h:form>
+</body> 
+</html>

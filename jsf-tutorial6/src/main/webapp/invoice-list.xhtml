@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Invoice List</title>
+</h:head> 
+<body> 
+	<h1>Invoice List</h1>
+	
+	<h:form>
+		<h:inputText value="#{invoiceListBean.customer}" 
+			p:placeholder="Customer Name" 
+			style="margin-right:10px;"/>
+		<h:inputText value="#{invoiceListBean.dateFrom}" 
+			converter="localDateConverter" 
+			p:placeholder="Date From (yyyy-MM-dd)"
+			style="margin-right:10px;"/>
+		<h:inputText value="#{invoiceListBean.dateTo}"
+			converter="localDateConverter" 
+			p:placeholder="Date To (yyyy-MM-dd)"
+			style="margin-right:10px;"/>
+		<h:commandButton action="#{invoiceListBean.search()}" value="Search" />
+		<h:button value="Add Invoice" outcome="/invoice-edit"></h:button>
+	</h:form>
+	
+	<h:dataTable value="#{invoiceListBean.list}" var="i">
+		<h:column>
+			<f:facet name="header">ID</f:facet>
+			<h:link value="#{i.id}" outcome="/invoice-edit">
+				<f:param name="id" value="#{i.id}" />
+			</h:link>
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Customer Name</f:facet>
+			<h:outputText value="#{i.customer}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Invoice Date</f:facet>
+			<h:outputText value="#{i.invoiceDate}" 
+				converter="localDateTimeConverter" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Item Count</f:facet>
+			<h:outputText value="#{i.itemCount}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Total</f:facet>
+			<h:outputText value="#{i.total}" />
+		</h:column>
+		
+		<h:column>
+			<h:button outcome="/invoice-edit" value="Edit">
+				<f:param name="id" value="#{i.id}"></f:param>
+				<f:param name="ope" value="edit"></f:param>
+			</h:button>
+		</h:column>
+	</h:dataTable>
+</body> 
+</html>
