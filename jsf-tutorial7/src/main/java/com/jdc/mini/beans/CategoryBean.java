@@ -32,6 +32,11 @@ public class CategoryBean implements Serializable {
 		return "/view/categories?faces-redirect=true";
 	}
 
+	public void addNew() {
+		data = new Category();
+		showPopup = true;
+	}
+
 	public void edit(Category c) {
 		data = c;
 		showPopup = true;

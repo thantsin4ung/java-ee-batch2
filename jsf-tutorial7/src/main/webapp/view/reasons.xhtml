@@ -1,9 +1,139 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
+	
+		<ui:define name="title">Reasons</ui:define>
+		
+		<ui:define name="page-title">Reson Management</ui:define>
+		
+		<ui:define name="content">
+			
+			<!-- Add Button -->
+			<div class="row">
+				<div class="col-sm-12 text-right">
+					<h:form>
+						<h:commandLink styleClass="btn btn-success">
+							<i class="fa fa-plus"></i> Add New Reason
+							<f:ajax execute="@this" render=":popup :script" listener="#{reasonBean.addNew()}" />
+						</h:commandLink>
+					</h:form>
+				</div>
+			</div>
+			
+			<!-- Table View -->
+			<h:form id="list" styleClass="MarTop20" rendered="#{not empty allReasons}">
+				<h:dataTable value="#{allReasons}" var="r" styleClass="table table-bordered table-hover">
+					<h:column>
+						<f:facet name="header">Id</f:facet>
+						<h:outputText value="#{r.id}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Type</f:facet>
+						<h:outputText value="#{r.category.type}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Category</f:facet>
+						<h:outputText value="#{r.category.name}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Name</f:facet>
+						<h:outputText value="#{r.reason}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Delete Flag</f:facet>
+						<h:outputText value="#{r.security.delFlag ? 'Delete' : ''}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Update Time</f:facet>
+						<h:outputText value="#{r.security.modfication}" converter="localDateTimeConverter" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Update User</f:facet>
+						<h:outputText value="#{r.security.updateUser}" />
+					</h:column>
+					<h:column>
+						<h:commandLink actionListener="#{reasonBean.edit(r)}" styleClass="MarRight10" >
+							<f:ajax execute="@this" render=":popup :script" />
+							<i class="fa fa-pencil"></i>
+						</h:commandLink>
+						
+						<h:commandLink action="#{reasonBean.delete(r)}" >
+							<i class="fa fa-trash"></i>
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+			
+			<!-- Popup Dialog -->
+			<h:form id="popup" styleClass="form-horizontal">
+				<div class="modal fade" id="modal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							
+							<div class="modal-header">
+								<h4 class="modal-title"><h:outputText value="#{reasonBean.data.id eq 0 ? 'Add New Category' : 'Edit Category'}" /> </h4>
+							</div>
+							
+							<div class="modal-body">
+								
+								<div class="form-group">
+									<h:outputLabel value="Type" styleClass="control-label col-sm-3" />
+									<div class="col-sm-8">
+										<h:selectOneMenu value="#{reasonBean.type}" styleClass="form-control">
+											<f:ajax execute="@this" render="categories" listener="#{reasonBean.changeType()}" />
+											<f:selectItems value="#{balanceTypes}" var="t" itemValue="#{t}" itemLabel="#{t}" />
+										</h:selectOneMenu>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<h:outputLabel value="Category" styleClass="control-label col-sm-3" />
+									<div class="col-sm-8">
+										<h:selectOneMenu id="categories" value="#{reasonBean.data.category}"
+											converter="#{categoryConverter}" styleClass="form-control">
+											<f:selectItems value="#{reasonBean.categories}" var="t" itemValue="#{t}" itemLabel="#{t.name}" />
+										</h:selectOneMenu>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<h:outputLabel value="Name" styleClass="control-label col-sm-3" />
+									<div class="col-sm-8">
+										<h:inputText value="#{reasonBean.data.reason}" 
+											p:placeholder="Enter Category Name" styleClass="form-control" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-8 col-sm-offset-3">
+										<h:commandLink styleClass="btn btn-danger" action="#{reasonBean.save()}" >
+											<i class="fa fa-save"></i> Save
+										</h:commandLink>
+									</div>
+								</div>
+								
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</h:form>
+			
+			<h:panelGroup id="script">
+				<script>
+					$(function() {
+						if(#{reasonBean.showPopup}) {
+							$('#modal').modal('show');
+						}
+					});
+				</script>
+			</h:panelGroup>
+			
+		</ui:define>
 	</ui:composition>
 </html>

@@ -10,6 +10,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.jdc.mini.entity.Balance.Type;
 import com.jdc.mini.entity.Category;
 import com.jdc.mini.service.CategoryService;
 
@@ -40,5 +41,9 @@ public class CategoryProducer {
 	@Produces
 	public List<Category> getAllCategories() {
 		return list;
+	}
+
+	public List<Category> find(Type type) {
+		return getCategories().stream().filter(a -> a.getType() == type).collect(Collectors.toList());
 	}
 }
