@@ -10,14 +10,14 @@ import com.jdc.mini.entity.Security;
 public class CommonListener {
 
 	@PrePersist
-	private void prePersist(CommonEntity entity) {
+	public void prePersist(CommonEntity entity) {
 		Security security = entity.getSecurity();
 		security.setCreation(LocalDateTime.now());
 		security.setModfication(LocalDateTime.now());
 	}
 
 	@PreUpdate
-	private void preUpdate(CommonEntity entity) {
+	public void preUpdate(CommonEntity entity) {
 		Security security = entity.getSecurity();
 		security.setModfication(LocalDateTime.now());
 	}

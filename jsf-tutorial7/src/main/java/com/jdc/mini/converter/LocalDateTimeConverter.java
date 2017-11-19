@@ -28,7 +28,7 @@ public class LocalDateTimeConverter implements Converter {
 
 		if (null != value) {
 			LocalDateTime date = (LocalDateTime) value;
-			date.format(DateTimeFormatter.ofPattern(PATTERN));
+			return date.format(DateTimeFormatter.ofPattern(PATTERN));
 		}
 		return null;
 	}

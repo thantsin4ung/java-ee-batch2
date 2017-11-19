@@ -39,7 +39,7 @@ public class CategoryBean implements Serializable {
 
 	public String delete(Category c) {
 		c.getSecurity().setDelFlag(true);
-		service.save(data);
+		service.save(c);
 		return "/view/categories?faces-redirect=true";
 	}
 

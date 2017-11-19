@@ -5,7 +5,8 @@
 	<persistence-unit-metadata>
 		<persistence-unit-defaults>
 			<entity-listeners>
-				<entity-listener class="com.jdc.mini.listener.CommonListener"></entity-listener>
+				<entity-listener class="com.jdc.mini.listener.CommonListener">
+				</entity-listener>
 			</entity-listeners>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
