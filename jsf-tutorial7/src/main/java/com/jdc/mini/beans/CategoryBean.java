@@ -37,8 +37,8 @@ public class CategoryBean implements Serializable {
 		showPopup = true;
 	}
 
-	public String delete(long id) {
-		data.getSecurity().setDelFlag(true);
+	public String delete(Category c) {
+		c.getSecurity().setDelFlag(true);
 		service.save(data);
 		return "/view/categories?faces-redirect=true";
 	}

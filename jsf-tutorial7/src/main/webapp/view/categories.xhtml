@@ -50,7 +50,14 @@
 						<h:outputText value="#{c.security.updateUser}" />
 					</h:column>
 					<h:column>
+						<h:commandLink actionListener="#{categoryBean.edit(c)}" >
+							<f:ajax execute="@this" render=":popup :script" />
+							<i class="fa fa-pencil"></i>
+						</h:commandLink>
 						
+						<h:commandLink action="#{categoryBean.delete(c)}" >
+							<i class="fa fa-trash"></i>
+						</h:commandLink>
 					</h:column>
 				</h:dataTable>
 			</h:form>
@@ -98,6 +105,16 @@
 					</div>
 				</div>
 			</h:form>
+			
+			<h:panelGroup id="script">
+				<script>
+					$(function() {
+						if(#{categoryBean.showPopup}) {
+							$('#modal').modal('show');
+						}
+					});
+				</script>
+			</h:panelGroup>
 			
 		</ui:define>
 	</ui:composition>
