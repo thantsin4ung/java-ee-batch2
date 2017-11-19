@@ -6,10 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 import com.jdc.mini.listener.CommonEntity;
 
 @Entity
+@NamedQuery(name = "Reasons.getAll", query = "select r from Reasons r")
 public class Reasons implements CommonEntity {
 
 	private static final long serialVersionUID = 1L;

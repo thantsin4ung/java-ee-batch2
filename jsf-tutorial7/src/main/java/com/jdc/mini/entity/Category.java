@@ -5,11 +5,13 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 import com.jdc.mini.entity.Balance.Type;
 import com.jdc.mini.listener.CommonEntity;
 
 @Entity
+@NamedQuery(name = "Category.getAll", query = "select c from Category c")
 public class Category implements CommonEntity {
 
 	private static final long serialVersionUID = 1L;

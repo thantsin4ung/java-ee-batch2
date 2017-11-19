@@ -1,9 +1,104 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
+	
+		<ui:define name="title">Categories</ui:define>
+		
+		<ui:define name="page-title">Category Management</ui:define>
+		
+		<ui:define name="content">
+			
+			<!-- Add Button -->
+			<div class="row">
+				<div class="col-sm-12 text-right">
+					<button class="btn btn-default" data-toggle="modal" data-target="#modal">
+						<i class="fa fa-plus"></i> Add New Category
+					</button>
+				</div>
+			</div>
+			
+			<!-- Table View -->
+			<h:form id="list" styleClass="MarTop20" rendered="#{not empty allCategories}">
+				<h:dataTable value="#{allCategories}" var="c" styleClass="table table-bordered table-hover">
+					<h:column>
+						<f:facet name="header">Id</f:facet>
+						<h:outputText value="#{c.id}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Type</f:facet>
+						<h:outputText value="#{c.type}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Name</f:facet>
+						<h:outputText value="#{c.name}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Delete Flag</f:facet>
+						<h:outputText value="#{c.security.delFlag ? 'Delete' : ''}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Update Time</f:facet>
+						<h:outputText value="#{c.security.modfication}" converter="localDateTimeConverter" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Update User</f:facet>
+						<h:outputText value="#{c.security.updateUser}" />
+					</h:column>
+					<h:column>
+						
+					</h:column>
+				</h:dataTable>
+			</h:form>
+			
+			<!-- Popup Dialog -->
+			<h:form id="popup" styleClass="form-horizontal">
+				<div class="modal fade" id="modal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							
+							<div class="modal-header">
+								<h4 class="modal-title"><h:outputText value="#{categoryBean.data.id eq 0 ? 'Add New Category' : 'Edit Category'}" /> </h4>
+							</div>
+							
+							<div class="modal-body">
+								
+								<div class="form-group">
+									<h:outputLabel value="Type" styleClass="control-label col-sm-3" />
+									<div class="col-sm-8">
+										<h:selectOneMenu value="#{categoryBean.data.type}" styleClass="form-control">
+											<f:selectItems value="#{balanceTypes}" var="t" itemValue="#{t}" itemLabel="#{t}" />
+										</h:selectOneMenu>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<h:outputLabel value="Name" styleClass="control-label col-sm-3" />
+									<div class="col-sm-8">
+										<h:inputText value="#{categoryBean.data.name}" 
+											p:placeholder="Enter Category Name" styleClass="form-control" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-8 col-sm-offset-3">
+										<h:commandLink styleClass="btn btn-danger" action="#{categoryBean.save()}" >
+											<i class="fa fa-save"></i> Save
+										</h:commandLink>
+									</div>
+								</div>
+								
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</h:form>
+			
+		</ui:define>
 	</ui:composition>
 </html>
