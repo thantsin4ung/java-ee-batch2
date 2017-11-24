@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col-sm-12 text-right">
 					<h:form>
-						<h:commandLink styleClass="btn btn-default" >
+						<h:commandLink styleClass="btn btn-default" actionListener="#{categoryBean.addNew()}" >
 							<i class="fa fa-plus"></i> Add New Category
 							<f:ajax execute="@this" render=":popup :script" />
 						</h:commandLink>
