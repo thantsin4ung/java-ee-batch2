@@ -18,7 +18,7 @@ public class CategoryConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String value) {
 
-		if (null != value && !value.isEmpty()) {
+		if (null != value && !value.isEmpty() && !value.equals("Select Category")) {
 			long id = Long.parseLong(value);
 			return service.find(id);
 		}
@@ -29,7 +29,7 @@ public class CategoryConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object value) {
 
-		if (null != value) {
+		if (null != value && value instanceof Category) {
 			Category category = (Category) value;
 			return String.valueOf(category.getId());
 		}

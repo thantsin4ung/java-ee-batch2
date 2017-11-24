@@ -95,7 +95,7 @@ public class BalanceEditBean implements Serializable {
 
 	public String save() {
 		service.save(balance);
-		return "/view/balance-report?faces-redirect=true";
+		return "/view/member/balance-report?faces-redirect=true";
 	}
 
 	public Balance getBalance() {

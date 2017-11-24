@@ -9,5 +9,109 @@
 		<ui:define name="title">Balances</ui:define>
 		
 		<ui:define name="page-title">Balance Report</ui:define>
+		
+		<ui:define name="content">
+			
+			<!-- Search From -->
+			<h:form styleClass="form-inline">
+				<div class="form-group">
+					<label>Balance Type</label>
+					<div>
+						<h:selectOneMenu styleClass="form-control" value="#{balanceReportBean.type}">
+							<f:selectItem itemLabel="Select Type"/>
+							<f:selectItems value="#{balanceTypes}" var="t" itemLabel="#{t}" itemValue="#{t}" />
+							<f:ajax execute="@this" render="category :commonScript" listener="#{balanceReportBean.changeType()}" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Category</label>
+					<div>
+						<h:selectOneMenu id="category" styleClass="form-control" value="#{balanceReportBean.category}" converter="#{categoryConverter}" >
+							<f:selectItem itemLabel="Select Category" itemValue="0"/>
+							<f:selectItems value="#{balanceReportBean.categories}" var="c" itemValue="#{c}" itemLabel="#{c.name}" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Date From</label>
+					<div>
+						<div class="input-group date">
+							<h:inputText styleClass="form-control" value="#{balanceReportBean.dateFrom}" converter="localDateConverter" />
+							<span class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</span>	
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Date To</label>
+					<div>
+						<div class="input-group date">
+							<h:inputText styleClass="form-control" value="#{balanceReportBean.dateTo}" converter="localDateConverter" />
+							<span class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</span>	
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:commandLink action="#{balanceReportBean.search()}" styleClass="btn btn-default MarTop24">
+						<i class="fa fa-search"></i> Search
+ 					</h:commandLink>
+				</div>
+			</h:form>
+			
+			<!-- Search Result -->
+			<h:dataTable value="#{balanceReportBean.balances}" var="b" rendered="#{not empty balanceReportBean.balances}"
+				styleClass="table table-bordered table-hover MarTop20">
+				
+				<h:column>
+					<f:facet name="header">Reference Date</f:facet>
+					<h:outputText value="#{b.parent.refDate}" converter="localDateConverter" />
+				</h:column>	
+				
+				<h:column>
+					<f:facet name="header">Type</f:facet>
+					<h:outputText value="#{b.parent.type}"  />
+				</h:column>	
+
+				<h:column>
+					<f:facet name="header">Category</f:facet>
+					<h:outputText value="#{b.category.name}"  />
+				</h:column>	
+
+				<h:column>
+					<f:facet name="header">User</f:facet>
+					<h:outputText value="#{b.parent.member.name}" />
+				</h:column>	
+
+				<h:column>
+					<f:facet name="header">Income</f:facet>
+					<h:outputText value="#{b.income}" />
+				</h:column>	
+
+				<h:column>
+					<f:facet name="header">Expense</f:facet>
+					<h:outputText value="#{b.expense}" />
+				</h:column>	
+
+				<h:column>
+					<f:facet name="header">Balance</f:facet>
+					<h:outputText value="#{b.balance}" />
+				</h:column>	
+
+				<h:column>
+					<f:facet name="header">Reason</f:facet>
+					<h:outputText value="#{b.reason}" />
+				</h:column>	
+
+			</h:dataTable>
+		
+		</ui:define>
 	</ui:composition>
 </html>

@@ -53,12 +53,12 @@
 								<div class="col-sm-3">
 									<h:selectOneMenu styleClass="form-control" converter="#{categoryConverter}" value="#{i.category}">
 										<f:selectItems value="#{balanceEditBean.balance.type eq 'Income' ? incomeCategories : expenseCategories}" var="c" itemValue="#{c}" itemLabel="#{c.name}" />
-										<f:ajax execute="@form" render="@form :script :globalMessage" 
+										<f:ajax execute="@form" render="@form :commonScript :globalMessage" 
 											listener="#{balanceEditBean.changeCategory(i)}" />
 									</h:selectOneMenu>
 								</div>
 								<div class="col-sm-2">
-									<h:inputText styleClass="form-control" value="#{i.income}" />
+									<h:inputText styleClass="form-control" value="#{balanceEditBean.balance.type eq 'Income' ? i.income : i.expense}" />
 								</div>
 								<div class="col-sm-1">
 									<h:inputText value="#{i.reasonId}" styleClass="form-control">
@@ -72,7 +72,7 @@
 								<div class="col-sm-1">
 									<h:commandLink styleClass="btn-link">
 										<i class="fa fa-2x fa-remove"></i>
-										<f:ajax execute="@this" render="@form :script :globalMessage" 
+										<f:ajax execute="@this" render="@form :commonScript :globalMessage" 
 											listener="#{balanceEditBean.removeItem(i)}" immediate="true" />
 									</h:commandLink>
 								</div>
@@ -83,7 +83,7 @@
 							<div class="col-sm-12">
 								<h:commandLink styleClass="btn btn-default MarRight10">
 									<i class="fa fa-plus"></i> Add
-									<f:ajax execute="@this" render="@form" listener="#{balanceEditBean.addItem()}" />
+									<f:ajax execute="@this" render="@form :commonScript" listener="#{balanceEditBean.addItem()}" />
 								</h:commandLink>
 								<h:commandLink action="#{balanceEditBean.save()}" styleClass="btn btn-default">
 									<i class="fa fa-save"></i> Save

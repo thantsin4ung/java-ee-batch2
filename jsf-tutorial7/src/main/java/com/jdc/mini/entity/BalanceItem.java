@@ -6,11 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import com.jdc.mini.listener.CommonEntity;
 
 @Entity
+@NamedQueries({
+		@NamedQuery(name = "BalanceItem.getTotalExpenses", query = "select sum(b.expense) from BalanceItem b where b.parent.refDate < :dateTo and b.security.delFlag = false"),
+		@NamedQuery(name = "BalanceItem.getTotalIncomes", query = "select sum(b.income) from BalanceItem b where b.parent.refDate < :dateTo and b.security.delFlag = false") })
 public class BalanceItem implements CommonEntity {
 
 	private static final long serialVersionUID = 1L;

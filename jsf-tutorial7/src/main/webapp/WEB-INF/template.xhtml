@@ -29,7 +29,7 @@
 			<div class="container">
 				
 				<div class="navbar-header">
-					<h:link styleClass="navbar-brand" outcome="/view/balance-report">
+					<h:link styleClass="navbar-brand" outcome="/view/member/balance-report">
 						<i class="fa fa-calculator"></i> Mini Account
 					</h:link>				
 				</div>
@@ -46,6 +46,10 @@
 						</h:link>
 					</li>
 					
+					<li class="#{request.isUserInRole('Admin') ? '' : 'hide'}">
+						<h:link outcome="/view/admin/members" value="User Management" />
+					</li>
+
 					<li class="dropdown #{request.isUserInRole('Admin') ? '' : 'hide'}">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							Master Data <span class="caret"></span>
@@ -63,10 +67,23 @@
 				</ul>
 			
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<h:commandLink action="#{loginBean.logout()}" >
-							Logout <i class="fa fa-sign-out"></i>
-						</h:commandLink>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-cog"></i> <span class="caret"></span>
+						</a>
+						
+						<ul class="dropdown-menu">
+							<li>
+								<h:link outcome="/view/member/change-password" >
+									<i class="fa fa-lock"></i> Change Password
+								</h:link>
+							</li>
+							<li>
+								<h:commandLink action="#{loginBean.logout()}" >
+									<i class="fa fa-sign-out"></i> Logout
+								</h:commandLink>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</div>

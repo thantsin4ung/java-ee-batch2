@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col-sm-12 text-right">
 					<h:form>
-						<h:commandLink styleClass="btn btn-default" actionListener="#{categoryBean.addNew()}" >
+						<h:commandLink styleClass="btn btn-default" actionListener="#{memberBean.addMember()}" >
 							<i class="fa fa-plus"></i> Add New User
 							<f:ajax execute="@this" render=":popup :script" />
 						</h:commandLink>
@@ -26,23 +26,23 @@
 			</div>
 			
 			<!-- Table View -->
-			<h:form id="list" styleClass="MarTop20" rendered="#{not empty allCategories}">
-				<h:dataTable value="#{allCategories}" var="c" styleClass="table table-bordered table-hover">
-					<h:column>
-						<f:facet name="header">Id</f:facet>
-						<h:outputText value="#{c.id}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Type</f:facet>
-						<h:outputText value="#{c.type}" />
-					</h:column>
+			<h:form id="list" styleClass="MarTop20" rendered="#{not empty memberListBean.list}">
+				<h:dataTable value="#{memberListBean.list}" var="c" styleClass="table table-bordered table-hover">
 					<h:column>
 						<f:facet name="header">Name</f:facet>
 						<h:outputText value="#{c.name}" />
 					</h:column>
 					<h:column>
+						<f:facet name="header">Email Address</f:facet>
+						<h:outputText value="#{c.email}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Role</f:facet>
+						<h:outputText value="#{c.role}" />
+					</h:column>
+					<h:column>
 						<f:facet name="header">Delete Flag</f:facet>
-						<h:outputText value="#{c.security.delFlag ? 'Delete' : ''}" />
+						<h:outputText value="#{c.security.delFlag ? 'Delete' : 'Active'}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Update Time</f:facet>
@@ -53,12 +53,12 @@
 						<h:outputText value="#{c.security.updateUser}" />
 					</h:column>
 					<h:column>
-						<h:commandLink actionListener="#{categoryBean.edit(c)}" styleClass="MarRight10" >
+						<h:commandLink actionListener="#{memberBean.editMember(c)}" styleClass="MarRight10" rendered="#{request.remoteUser ne c.email}"  >
 							<f:ajax execute="@this" render=":popup :script" />
 							<i class="fa fa-pencil"></i>
 						</h:commandLink>
 						
-						<h:commandLink action="#{categoryBean.delete(c)}" >
+						<h:commandLink action="#{memberListBean.delete(c)}" rendered="#{request.remoteUser ne c.email}" >
 							<i class="fa fa-trash"></i>
 						</h:commandLink>
 					</h:column>
@@ -72,31 +72,47 @@
 						<div class="modal-content">
 							
 							<div class="modal-header">
-								<h4 class="modal-title"><h:outputText value="#{categoryBean.data.id eq 0 ? 'Add New Category' : 'Edit Category'}" /> </h4>
+								<h4 class="modal-title"><h:outputText value="#{empty memberBean.member.email ? 'Add New Member' : 'Edit Member'}" /> </h4>
 							</div>
 							
 							<div class="modal-body">
 								
 								<div class="form-group">
-									<h:outputLabel value="Type" styleClass="control-label col-sm-3" />
+									<h:outputLabel value="Member Name" styleClass="control-label col-sm-3" />
 									<div class="col-sm-8">
-										<h:selectOneMenu value="#{categoryBean.data.type}" styleClass="form-control">
-											<f:selectItems value="#{balanceTypes}" var="t" itemValue="#{t}" itemLabel="#{t}" />
-										</h:selectOneMenu>
+										<h:inputText value="#{memberBean.member.name}" 
+											p:placeholder="Enter Member Name" styleClass="form-control" />
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<h:outputLabel value="Name" styleClass="control-label col-sm-3" />
+									<h:outputLabel value="Email Address" styleClass="control-label col-sm-3" />
 									<div class="col-sm-8">
-										<h:inputText value="#{categoryBean.data.name}" 
-											p:placeholder="Enter Category Name" styleClass="form-control" />
+										<h:inputText value="#{memberBean.member.email}" 
+											p:placeholder="Enter Email for Login Id" styleClass="form-control" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<h:outputLabel value="Password" styleClass="control-label col-sm-3" />
+									<div class="col-sm-8">
+										<h:inputSecret value="#{memberBean.member.password}" 
+											p:placeholder="Enter Password" styleClass="form-control" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<h:outputLabel value="Role" styleClass="control-label col-sm-3" />
+									<div class="col-sm-8">
+										<h:selectOneMenu value="#{memberBean.member.role}" styleClass="form-control">
+											<f:selectItems value="#{roles}" var="r" itemValue="#{r}" itemLabel="#{r}" />
+										</h:selectOneMenu>
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="col-sm-8 col-sm-offset-3">
-										<h:commandLink styleClass="btn btn-danger" action="#{categoryBean.save()}" >
+										<h:commandLink styleClass="btn btn-danger" action="#{memberBean.save()}" >
 											<i class="fa fa-save"></i> Save
 										</h:commandLink>
 									</div>
@@ -112,7 +128,7 @@
 			<h:panelGroup id="script">
 				<script>
 					$(function() {
-						if(#{categoryBean.showPopup}) {
+						if(#{memberBean.showPopup}) {
 							$('#modal').modal('show');
 						}
 					});

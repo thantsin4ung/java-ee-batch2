@@ -22,6 +22,12 @@ public class MemberListBean {
 		list = service.getAll();
 	}
 
+	public String delete(Member member) {
+		member.getSecurity().setDelFlag(true);
+		service.save(member);
+		return "/view/admin/members?faces-redirect=true";
+	}
+
 	public List<Member> getList() {
 		return list;
 	}

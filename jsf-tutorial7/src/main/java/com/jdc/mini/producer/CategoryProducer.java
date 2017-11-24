@@ -1,5 +1,6 @@
 package com.jdc.mini.producer;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,8 +15,9 @@ import com.jdc.mini.entity.Balance.Type;
 import com.jdc.mini.entity.Category;
 import com.jdc.mini.service.CategoryService;
 
+@SuppressWarnings("serial")
 @ApplicationScoped
-public class CategoryProducer {
+public class CategoryProducer implements Serializable {
 
 	private List<Category> list;
 

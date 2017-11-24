@@ -32,7 +32,7 @@ public class MemberBean implements Serializable {
 
 	public String save() {
 		service.save(member);
-		return "/admin/members?faces-redirect=true";
+		return "/view/admin/members?faces-redirect=true";
 	}
 
 	public Member getMember() {
