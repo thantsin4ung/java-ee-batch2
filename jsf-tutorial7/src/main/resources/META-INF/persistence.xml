@@ -3,5 +3,8 @@
 	<persistence-unit name="jsf-tutorial7">
 		<jta-data-source>java:jboss/datasources/MiniDB</jta-data-source>
 		<mapping-file>META-INF/orm.xml</mapping-file>
+		<properties>
+			<property name="javax.persistence.sql-load-script-source" value="/META-INF/load.sql"/>
+		</properties>
 	</persistence-unit>
 </persistence>

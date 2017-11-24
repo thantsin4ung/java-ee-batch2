@@ -1,0 +1,1 @@
+insert into Member (email, name, role, password, delflag) values ('Admin', 'Admin User', 'Admin', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=', false);

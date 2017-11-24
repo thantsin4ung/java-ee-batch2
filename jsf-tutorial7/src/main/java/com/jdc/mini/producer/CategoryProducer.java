@@ -43,6 +43,18 @@ public class CategoryProducer {
 		return list;
 	}
 
+	@Named
+	@Produces
+	public List<Category> getIncomeCategories() {
+		return find(Type.Income);
+	}
+
+	@Named
+	@Produces
+	public List<Category> getExpenseCategories() {
+		return find(Type.Expense);
+	}
+
 	public List<Category> find(Type type) {
 		return getCategories().stream().filter(a -> a.getType() == type).collect(Collectors.toList());
 	}

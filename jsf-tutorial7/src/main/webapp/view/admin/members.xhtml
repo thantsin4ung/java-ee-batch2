@@ -7,9 +7,9 @@
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 	
-		<ui:define name="title">Reasons</ui:define>
+		<ui:define name="title">Users</ui:define>
 		
-		<ui:define name="page-title">Reson Management</ui:define>
+		<ui:define name="page-title">User Management</ui:define>
 		
 		<ui:define name="content">
 			
@@ -17,52 +17,48 @@
 			<div class="row">
 				<div class="col-sm-12 text-right">
 					<h:form>
-						<h:commandLink styleClass="btn btn-success">
-							<i class="fa fa-plus"></i> Add New Reason
-							<f:ajax execute="@this" render=":popup :script" listener="#{reasonBean.addNew()}" />
+						<h:commandLink styleClass="btn btn-default" actionListener="#{categoryBean.addNew()}" >
+							<i class="fa fa-plus"></i> Add New User
+							<f:ajax execute="@this" render=":popup :script" />
 						</h:commandLink>
 					</h:form>
 				</div>
 			</div>
 			
 			<!-- Table View -->
-			<h:form id="list" styleClass="MarTop20" rendered="#{not empty allReasons}">
-				<h:dataTable value="#{allReasons}" var="r" styleClass="table table-bordered table-hover">
+			<h:form id="list" styleClass="MarTop20" rendered="#{not empty allCategories}">
+				<h:dataTable value="#{allCategories}" var="c" styleClass="table table-bordered table-hover">
 					<h:column>
 						<f:facet name="header">Id</f:facet>
-						<h:outputText value="#{r.id}" />
+						<h:outputText value="#{c.id}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Type</f:facet>
-						<h:outputText value="#{r.category.type}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Category</f:facet>
-						<h:outputText value="#{r.category.name}" />
+						<h:outputText value="#{c.type}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Name</f:facet>
-						<h:outputText value="#{r.reason}" />
+						<h:outputText value="#{c.name}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Delete Flag</f:facet>
-						<h:outputText value="#{r.security.delFlag ? 'Delete' : ''}" />
+						<h:outputText value="#{c.security.delFlag ? 'Delete' : ''}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Update Time</f:facet>
-						<h:outputText value="#{r.security.modfication}" converter="localDateTimeConverter" />
+						<h:outputText value="#{c.security.modfication}" converter="localDateTimeConverter" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Update User</f:facet>
-						<h:outputText value="#{r.security.updateUser}" />
+						<h:outputText value="#{c.security.updateUser}" />
 					</h:column>
 					<h:column>
-						<h:commandLink actionListener="#{reasonBean.edit(r)}" styleClass="MarRight10" >
+						<h:commandLink actionListener="#{categoryBean.edit(c)}" styleClass="MarRight10" >
 							<f:ajax execute="@this" render=":popup :script" />
 							<i class="fa fa-pencil"></i>
 						</h:commandLink>
 						
-						<h:commandLink action="#{reasonBean.delete(r)}" >
+						<h:commandLink action="#{categoryBean.delete(c)}" >
 							<i class="fa fa-trash"></i>
 						</h:commandLink>
 					</h:column>
@@ -76,7 +72,7 @@
 						<div class="modal-content">
 							
 							<div class="modal-header">
-								<h4 class="modal-title"><h:outputText value="#{reasonBean.data.id eq 0 ? 'Add New Category' : 'Edit Category'}" /> </h4>
+								<h4 class="modal-title"><h:outputText value="#{categoryBean.data.id eq 0 ? 'Add New Category' : 'Edit Category'}" /> </h4>
 							</div>
 							
 							<div class="modal-body">
@@ -84,19 +80,8 @@
 								<div class="form-group">
 									<h:outputLabel value="Type" styleClass="control-label col-sm-3" />
 									<div class="col-sm-8">
-										<h:selectOneMenu value="#{reasonBean.type}" styleClass="form-control">
-											<f:ajax execute="@this" render="categories" listener="#{reasonBean.changeType()}" />
+										<h:selectOneMenu value="#{categoryBean.data.type}" styleClass="form-control">
 											<f:selectItems value="#{balanceTypes}" var="t" itemValue="#{t}" itemLabel="#{t}" />
-										</h:selectOneMenu>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<h:outputLabel value="Category" styleClass="control-label col-sm-3" />
-									<div class="col-sm-8">
-										<h:selectOneMenu id="categories" value="#{reasonBean.data.category}"
-											converter="#{categoryConverter}" styleClass="form-control">
-											<f:selectItems value="#{reasonBean.categories}" var="t" itemValue="#{t}" itemLabel="#{t.name}" />
 										</h:selectOneMenu>
 									</div>
 								</div>
@@ -104,14 +89,14 @@
 								<div class="form-group">
 									<h:outputLabel value="Name" styleClass="control-label col-sm-3" />
 									<div class="col-sm-8">
-										<h:inputText value="#{reasonBean.data.reason}" 
+										<h:inputText value="#{categoryBean.data.name}" 
 											p:placeholder="Enter Category Name" styleClass="form-control" />
 									</div>
 								</div>
 
 								<div class="form-group">
 									<div class="col-sm-8 col-sm-offset-3">
-										<h:commandLink styleClass="btn btn-danger" action="#{reasonBean.save()}" >
+										<h:commandLink styleClass="btn btn-danger" action="#{categoryBean.save()}" >
 											<i class="fa fa-save"></i> Save
 										</h:commandLink>
 									</div>
@@ -127,7 +112,7 @@
 			<h:panelGroup id="script">
 				<script>
 					$(function() {
-						if(#{reasonBean.showPopup}) {
+						if(#{categoryBean.showPopup}) {
 							$('#modal').modal('show');
 						}
 					});

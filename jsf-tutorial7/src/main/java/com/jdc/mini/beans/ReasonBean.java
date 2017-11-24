@@ -38,7 +38,7 @@ public class ReasonBean implements Serializable {
 
 	public String save() {
 		service.save(data);
-		return "/view/reasons?faces-redirect=true";
+		return "/view/admin/reasons?faces-redirect=true";
 	}
 
 	public void changeType() {

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+	
+		<ui:define name="title">Add #{balanceEditBean.balance.type}</ui:define>
+		
+		<ui:define name="page-title">Add #{balanceEditBean.balance.type}</ui:define>
+		
+		<ui:define name="content">
+			
+			<h:form id="allForm">
+				<div class="form-group row">
+					
+					<div class="col-lg-4">
+						<label class="control-label">Reference Date</label>
+						<div class="input-group date">
+							<h:inputText value="#{balanceEditBean.balance.refDate}" 
+								converter="localDateConverter" styleClass="form-control dateTime" />
+							<span class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</span>	
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					
+					<div class="col-lg-8">
+						
+						<div class="row">
+							<div class="col-sm-12">
+								<h4>#{balanceEditBean.balance.type} Details</h4>
+							</div>
+						</div>
+					
+						<div class="row">
+							<div class="col-sm-3">
+								<label>Category</label>
+							</div>
+							<div class="col-sm-2">
+								<label>Amount</label>
+							</div>
+							<div class="col-sm-7">
+								<label>Reason</label>
+							</div>
+
+							<ui:repeat var="i" value="#{balanceEditBean.balance.items}">
+								<div class="col-sm-3">
+									<h:selectOneMenu styleClass="form-control" converter="#{categoryConverter}" value="#{i.category}">
+										<f:selectItems value="#{balanceEditBean.balance.type eq 'Income' ? incomeCategories : expenseCategories}" var="c" itemValue="#{c}" itemLabel="#{c.name}" />
+										<f:ajax execute="@form" render="@form :script :globalMessage" 
+											listener="#{balanceEditBean.changeCategory(i)}" />
+									</h:selectOneMenu>
+								</div>
+								<div class="col-sm-2">
+									<h:inputText styleClass="form-control" value="#{i.income}" />
+								</div>
+								<div class="col-sm-1">
+									<h:inputText value="#{i.reasonId}" styleClass="form-control">
+										<f:ajax execute="@form" render="@form :script :globalMessage" 
+										     listener="#{balanceEditBean.selectReason(i)}"  />
+									</h:inputText>
+								</div>
+								<div class="col-sm-5">
+									<h:inputText id="reason" value="#{i.reason}" styleClass="form-control" />
+								</div>
+								<div class="col-sm-1">
+									<h:commandLink styleClass="btn-link">
+										<i class="fa fa-2x fa-remove"></i>
+										<f:ajax execute="@this" render="@form :script :globalMessage" 
+											listener="#{balanceEditBean.removeItem(i)}" immediate="true" />
+									</h:commandLink>
+								</div>
+							</ui:repeat>
+						</div>
+						
+						<div class="row MarTop20">
+							<div class="col-sm-12">
+								<h:commandLink styleClass="btn btn-default MarRight10">
+									<i class="fa fa-plus"></i> Add
+									<f:ajax execute="@this" render="@form" listener="#{balanceEditBean.addItem()}" />
+								</h:commandLink>
+								<h:commandLink action="#{balanceEditBean.save()}" styleClass="btn btn-default">
+									<i class="fa fa-save"></i> Save
+								</h:commandLink>
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="col-lg-4">
+
+						<div class="row">
+							<div class="col-sm-12">
+								<h4>Reasons</h4>
+							</div>
+						</div>
+						
+						<h:panelGroup>
+							<ol>
+								<ui:repeat var="c" value="#{balanceEditBean.reasons}">
+									<li>#{c.reason}</li>
+								</ui:repeat>
+							</ol>
+						</h:panelGroup>
+					</div>
+				
+				</div>
+				
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+</html>

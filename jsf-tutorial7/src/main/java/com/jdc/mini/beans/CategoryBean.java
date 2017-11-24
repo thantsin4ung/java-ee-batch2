@@ -29,7 +29,7 @@ public class CategoryBean implements Serializable {
 
 	public String save() {
 		service.save(data);
-		return "/view/categories?faces-redirect=true";
+		return "/view/admin/categories?faces-redirect=true";
 	}
 
 	public void addNew() {
