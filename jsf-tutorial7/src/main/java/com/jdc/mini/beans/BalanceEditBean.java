@@ -60,7 +60,7 @@ public class BalanceEditBean implements Serializable {
 			BalanceItem item = new BalanceItem();
 			List<Category> categories = categoryProducer.find(balance.getType());
 			item.setCategory(categories.get(0));
-			balance.addItem(new BalanceItem());
+			balance.addItem(item);
 			changeCategory(item);
 		} catch (Exception e) {
 			FacesMessage message = new FacesMessage(null, "There is no Category for balance registration.");
