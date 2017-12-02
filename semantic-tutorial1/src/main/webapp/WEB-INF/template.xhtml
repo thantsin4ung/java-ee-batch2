@@ -1,11 +1,100 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head> 
-<body> 
+<h:head>
+	<title>Ask Me</title>
+	<link href="../resources/css/semantic.min.css" rel="stylesheet"
+		type="text/css" />
+	<h:outputStylesheet library="css" name="semantic.min.css" />
+	<h:outputScript library="js" name="jquery.min.js" />
+	<h:outputScript library="js" name="semantic.min.js" />
+</h:head>
+<body>
 
-</body> 
+	<div class="ui top menu attached pointing">
+		<div class="ui container">
+			<div class="left menu">
+
+				<h:link outcome="/index" styleClass="item active">
+					Ask Me Quick
+				</h:link>
+
+				<h:link outcome="/index" styleClass="item">
+					Top Questions
+				</h:link>
+
+				<h:link outcome="/index" styleClass="item">
+					New Questions
+				</h:link>
+
+				<h:link outcome="/index" styleClass="item">
+					Top Helpers
+				</h:link>
+
+				<div class="ui dropdown icon item">
+					<span>Categories</span> <i class="dropdown icon"></i>
+					<div class="menu">
+						<ui:repeat var="c" value="#{categories}">
+							<h:link outcome="/index" styleClass="item" value="#{c.name}" />
+						</ui:repeat>
+					</div>
+				</div>
+
+			</div>
+
+
+
+			<div class="right menu">
+
+				<h:link outcome="/signin" styleClass="item">
+					Sign In
+				</h:link>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="ui divider hidden"></div>
+
+	<!-- Outer Content -->
+	<div class="ui container  ">
+
+		<ui:insert name="outerContent">
+			<div class="ui grid">
+
+				<div class="thirteen wide column">
+					<!-- Inner Content -->
+					<ui:insert name="innerContent">
+
+					</ui:insert>
+				</div>
+
+				<div class="three wide column">
+					<!-- Left Menu -->
+					<div class="ui vertical menu">
+						<ui:repeat var="c" value="#{categories}">
+							<h:link styleClass="item" value="#{c.name}" outcome="/index" />
+						</ui:repeat>
+					</div>
+				</div>
+
+			</div>
+
+		</ui:insert>
+
+	</div>
+
+
+	<script>
+		$(function() {
+			$('.ui.menu .ui.dropdown').dropdown({
+		        on: 'hover'
+		     });
+		});
+	</script>
+
+</body>
 </html>
