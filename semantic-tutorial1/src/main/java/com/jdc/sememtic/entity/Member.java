@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Enumerated;
+import static javax.persistence.EnumType.STRING;
 
 @Entity
 public class Member implements Serializable {
@@ -21,13 +23,23 @@ public class Member implements Serializable {
 	private String job;
 	private LocalDate dob;
 	private Gender gender;
+	@Enumerated(STRING)
+	private Role role;
 
 	public enum Role {
-		Admin, Member
+		Admin, Member, Other
 	}
 
 	public enum Gender {
 		Male, Female
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public String getName() {

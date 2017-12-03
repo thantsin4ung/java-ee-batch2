@@ -1,0 +1,5 @@
+dsJndiName = java:jboss/datasources/SemanticDB
+principalsQuery = select password from Member where email=? and role <> 'Other'
+rolesQuery = select role, 'Roles' from Member where email=? and role <> 'Other'
+hashAlgorithm = SHA-256
+hashEncoding = base64

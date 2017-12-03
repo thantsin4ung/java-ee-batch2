@@ -2,10 +2,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 	
+		<ui:define name="innerContent">
+		
+			<!-- Search Form -->
+			<div class="ui raised segment">
+				
+				<h3>Search Questions #{loginUser.name}</h3>
+				<div class="ui divider"></div>
+				<h:form styleClass="ui form">
+
+					<div class="fields">
+
+						<div class="six wide field">
+							<label>Category</label>
+							<h:selectOneMenu styleClass="ui dropdown">
+								<f:selectItems value="#{categories}" var="c" itemLabel="#{c.name}" itemValue="#{c}" />
+							</h:selectOneMenu>
+						</div>
+						
+						<div class="twelve wide field">
+							<label>Keyword</label>
+							<div class="two fields">
+
+								<div class="field">
+									<h:inputText value="" p:placeholder="Search Keyword" />
+								</div>
+								
+								<div class="field">
+									<h:commandLink action="/index" value="Search" styleClass="ui button" />
+								</div>
+							
+							</div>						
+						</div>
+
+					</div>
+					
+				</h:form>
+				
+			</div>
+			
+			<!-- Result List -->
+			
+		
+		</ui:define>
 		
 	</ui:composition>
 </html>

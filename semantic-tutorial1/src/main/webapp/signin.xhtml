@@ -2,11 +2,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		
-		<ui:define name="outerContent"></ui:define>
+		<ui:define name="outerContent">
+			
+			<div class="ui two column centered grid">
+				<div class="ui segment raised column">
+					
+					<h3>Member Login</h3>
+					
+					<h:form styleClass="ui form">
+					
+						<div class="field">
+							<label>Login Id</label>
+							<h:inputText value="#{securityBean.email}" p:placeholder="Enter Login Id or Email" />
+						</div>
+					
+						<div class="field">
+							<label>Password</label>
+							<h:inputSecret value="#{securityBean.password}" p:placeholder="Enter Password" />
+						</div>
+						
+						<h:commandButton action="#{securityBean.login()}" value="Sign In" styleClass="ui button" />
+						<h:link outcome="/signup" value="Sign Up" styleClass="ui button"/>
+					</h:form>
+				</div>
+			</div>
+			
+		</ui:define>
 		
 	</ui:composition>
 </html>

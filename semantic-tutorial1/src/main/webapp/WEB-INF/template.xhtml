@@ -18,19 +18,19 @@
 		<div class="ui container">
 			<div class="left menu">
 
-				<h:link outcome="/index" styleClass="item active">
+				<h:link outcome="/index" styleClass="item  #{view.viewId eq '/index.xhtml' ? 'active' : ''}">
 					Ask Me Quick
 				</h:link>
 
-				<h:link outcome="/index" styleClass="item">
+				<h:link outcome="/questions-top" styleClass="item #{view.viewId eq '/questions-top.xhtml' ? 'active' : ''}">
 					Top Questions
 				</h:link>
 
-				<h:link outcome="/index" styleClass="item">
+				<h:link outcome="/questions-new" styleClass="item #{view.viewId eq '/questions-new.xhtml' ? 'active' : ''}">
 					New Questions
 				</h:link>
 
-				<h:link outcome="/index" styleClass="item">
+				<h:link outcome="/helper-top" styleClass="item #{view.viewId eq '/helper-top.xhtml' ? 'active' : ''}">
 					Top Helpers
 				</h:link>
 
@@ -49,9 +49,13 @@
 
 			<div class="right menu">
 
-				<h:link outcome="/signin" styleClass="item">
+				<h:link outcome="/signin" styleClass="item #{view.viewId eq '/signin.xhtml' ? 'active' : ''}" rendered="#{empty loginUser}">
 					Sign In
 				</h:link>
+				
+				<h:form>
+					<h:commandLink action="#{securityBean.logout()}" value="Sign Out" styleClass="item" rendered="#{not empty loginUser}" />
+				</h:form>
 
 			</div>
 		</div>
@@ -93,6 +97,8 @@
 			$('.ui.menu .ui.dropdown').dropdown({
 		        on: 'hover'
 		     });
+
+		    $('.field .ui.dropdown').dropdown();
 		});
 	</script>
 
