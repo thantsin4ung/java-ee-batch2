@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Decorator</title>
+</h:head> 
+<body> 
+
+	<h1>Decorator Demo</h1>
+	
+	<h:panelGrid columns="2">
+		
+		<h:outputLabel value="Coffee" />
+		<h:outputText value="#{myCoffee.coffeeName}" />
+	
+		<h:outputLabel value="Milk" />
+		<h:outputText value="#{myCoffee.milk}" />
+
+		<h:outputLabel value="Sugar" />
+		<h:outputText value="#{myCoffee.sugar}" />
+		
+	</h:panelGrid>
+</body> 
+</html>

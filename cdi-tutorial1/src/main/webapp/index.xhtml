@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>CDI Tutorial 1</title>
+</h:head> 
+<body> 
+
+	<h1>#{title} - #{version}</h1>
+	
+	
+	<ul>
+		
+		<ui:repeat var="m" value="#{menuBean.menus}">		
+			<li>
+				<h:outputText value="#{m}" />
+			</li>
+		</ui:repeat>
+	
+	</ul>
+	
+	<h2>Test Alternative</h2>
+	
+	<h:form>
+		<h:outputLabel value="Name" />
+		<h:inputText value="#{menuBean.name}" />
+		<h:commandButton action="#{menuBean.save()}" value="Create" />
+	</h:form>
+	
+</body> 
+</html>
