@@ -20,4 +20,8 @@ public class CategoryService {
 		return em.createQuery("select c from Category c", Category.class).getResultList();
 	}
 
+	public Object findById(long id) {
+		return em.find(Category.class, id);
+	}
+
 }

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Lob;
 
 @Entity
@@ -26,6 +27,11 @@ public class Question implements Serializable {
 	private LocalDateTime createTime;
 	@ManyToOne
 	private Member owner;
+	
+	@PrePersist
+	private void perPersist() {
+		createTime = LocalDateTime.now();
+	}
 
 	public long getId() {
 		return id;

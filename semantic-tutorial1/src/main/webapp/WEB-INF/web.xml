@@ -38,7 +38,7 @@
 		<display-name>Admin Security</display-name>
 		<web-resource-collection>
 			<web-resource-name>Admin Resources</web-resource-name>
-			<url-pattern>/admin/*</url-pattern>
+			<url-pattern>/view/admin/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>
@@ -51,7 +51,7 @@
 		<display-name>Member Security</display-name>
 		<web-resource-collection>
 			<web-resource-name>Member Resources</web-resource-name>
-			<url-pattern>/member/*</url-pattern>
+			<url-pattern>/view/member/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>
