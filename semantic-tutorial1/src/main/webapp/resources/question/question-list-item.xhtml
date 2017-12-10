@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<title>Not present in rendered output</title>
+</head>
+<body>
+	<composite:interface>
+		<composite:attribute name="item"
+			type="com.jdc.sememtic.entity.Question" required="true" />
+	</composite:interface>
+	<composite:implementation>
+		<div class="item">
+			<div class="content">
+				<h:link styleClass="header" outcome="/question-details"
+					value="#{cc.attrs.item.title}">
+					<f:param name="id" value="#{cc.attrs.item.id}" />
+				</h:link>
+				<div class="meta">
+					<h:outputText value="#{cc.attrs.item.category.name}" />
+				</div>
+				<div class="description">
+					<h:outputText value="#{cc.attrs.item.question}" />
+				</div>
+				<div class="extra">
+					<h:outputText value="#{cc.attrs.item.owner.name}" />
+					<h:outputText value="#{cc.attrs.item.createTime}" converter="dateTimeConverter" styleClass="ui right floated" />
+				</div>
+				<div class="ui divider"></div>
+			</div>
+		</div>
+
+	</composite:implementation>
+</body>
+</html>

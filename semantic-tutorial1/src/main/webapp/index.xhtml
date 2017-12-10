@@ -3,6 +3,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:q="http://xmlns.jcp.org/jsf/composite/question"
       xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
@@ -12,7 +13,7 @@
 			<!-- Search Form -->
 			<div class="ui raised segment">
 				
-				<h3>Search Questions #{loginUser.name}</h3>
+				<h3>Search Questions</h3>
 				<div class="ui divider"></div>
 				<h:form styleClass="ui form">
 
@@ -20,7 +21,8 @@
 
 						<div class="six wide field">
 							<label>Category</label>
-							<h:selectOneMenu styleClass="ui dropdown">
+							<h:selectOneMenu value="#{questionListBean.category}" converter="#{categoryConverter}" styleClass="ui dropdown">
+								<f:selectItem itemLabel="Select One" itemValue=""/>
 								<f:selectItems value="#{categories}" var="c" itemLabel="#{c.name}" itemValue="#{c}" />
 							</h:selectOneMenu>
 						</div>
@@ -30,11 +32,11 @@
 							<div class="two fields">
 
 								<div class="field">
-									<h:inputText value="" p:placeholder="Search Keyword" />
+									<h:inputText value="#{questionListBean.keyword}" p:placeholder="Search Keyword" />
 								</div>
 								
 								<div class="field">
-									<h:commandLink action="/index" value="Search" styleClass="ui button" />
+									<h:commandLink action="#{questionListBean.search()}" value="Search" styleClass="ui button" />
 								</div>
 							
 							</div>						
@@ -47,6 +49,11 @@
 			</div>
 			
 			<!-- Result List -->
+			<div class="ui items">
+				<ui:repeat var="q" value="#{questionListBean.list}">
+					<q:question-list-item item="#{q}" />
+				</ui:repeat>
+			</div>
 			
 		
 		</ui:define>
