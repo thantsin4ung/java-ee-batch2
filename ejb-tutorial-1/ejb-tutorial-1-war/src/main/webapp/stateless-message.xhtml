@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+<title>Stateless</title>
+</h:head> 
+<body> 
+
+	<h1>Stateless</h1>
+	
+	<h:form>
+		<h:inputText value="#{statelessMessageBean.message}" />
+		<h:commandButton action="#{statelessMessageBean.save()}" value="Save" />
+	</h:form>
+	
+	<ul>
+		<ui:repeat var="m" value="#{statelessMessages}">
+			<li>#{m}</li>
+		</ui:repeat>
+	</ul>
+</body> 
+</html>
