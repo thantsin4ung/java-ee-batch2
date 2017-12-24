@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+	
+	
+		<ui:define name="title">Sing Up</ui:define>
+
+		<ui:define name="menu"></ui:define>
+		
+		<ui:define name="content">
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Name" />
+					<h:inputText value="#{securityBean.name}" />
+
+					<h:outputLabel value="Login Id" />
+					<h:inputText value="#{securityBean.loginId}" />
+					
+					<h:outputLabel value="Password" />
+					<h:inputSecret value="#{securityBean.password}" />
+					
+					<h:panelGroup></h:panelGroup>
+					<h:panelGroup>
+						<button type="reset">Clear</button>
+						<h:commandButton action="#{securityBean.signUp()}" value="Sign Up" />
+					</h:panelGroup>
+					
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	
+	</ui:composition>
+</html>
