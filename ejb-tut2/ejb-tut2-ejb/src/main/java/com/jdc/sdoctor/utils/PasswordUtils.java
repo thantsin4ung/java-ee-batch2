@@ -17,4 +17,8 @@ public class PasswordUtils {
 		}
 		return null;
 	}
+
+	public static void main(String[] args) {
+		System.out.println(encript("admin"));
+	}
 }

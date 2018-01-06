@@ -1,0 +1,1 @@
+insert into Member (loginId, name, role, password) values ('admin', 'Admin Staff', 'Staff', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=');

@@ -10,7 +10,6 @@ import com.jdc.sdoctor.utils.MessageHandler;
 import com.jdc.sdoctor.utils.SmartDoctorException;
 
 @Model
-@MessageHandler
 public class SecurityBean {
 
 	private String name;
@@ -20,6 +19,7 @@ public class SecurityBean {
 	@EJB
 	private SecurityModel model;
 
+	@MessageHandler
 	public String login() {
 
 		try {
@@ -35,9 +35,15 @@ public class SecurityBean {
 		return "/member/profile?faces-redirect=true";
 	}
 
+	@MessageHandler
 	public String signUp() {
 		model.signUp(name, loginId, password);
 		return login();
+	}
+
+	public String signOut() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "/public/index?faces-redirect=true";
 	}
 
 	public String getName() {

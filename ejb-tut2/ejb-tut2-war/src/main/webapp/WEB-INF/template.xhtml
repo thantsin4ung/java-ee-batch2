@@ -6,6 +6,11 @@
 
 <h:head>
 	<title>Smart Doctor</title>
+	<link href="../resources/css/semantic.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../resources/css/common.css" rel="stylesheet" type="text/css"/>
+	
+	
+	
 </h:head> 
 <body> 
 	<h2><ui:insert name="title">Clinic Management System</ui:insert></h2>
@@ -16,18 +21,30 @@
 			<li>
 				<h:link outcome="/public/index" value="Home"/>
 			</li>
+			<h:panelGroup rendered="#{request.isUserInRole('Doctor') or request.isUserInRole('Staff')}">
+				<li>
+					<h:link outcome="/doctor/registrations" value="Registrations"/>
+				</li>
+				<li>
+					<h:link outcome="/doctor/medicines" value="Medicine Management"/>
+				</li>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{request.isUserInRole('Patient') or request.isUserInRole('Staff')}">
+				<li>
+					<h:link outcome="/doctor/registration-edit" value="Take Registration"/>
+				</li>
+			</h:panelGroup>
 			<li>
-				<h:link outcome="/public/signup" value="Sign Up"/>
+				<h:form rendered="#{not empty request.remoteUser}">
+					<h:commandLink action="#{securityBean.signOut()}" value="Sign Out" />
+				</h:form>
+				<h:link outcome="/public/signin" value="Sign In" rendered="#{empty request.remoteUser}"/>
 			</li>
-			<li>
-				<h:link outcome="/public/signin" value="Sign In"/>
-			</li>
-			<li>
-				<h:link outcome="/doctor/registrations" value="Registrations"/>
-			</li>
-			<li>
-				<h:link outcome="/doctor/registration-edit" value="Take Registration"/>
-			</li>
+			<h:panelGroup rendered="#{empty request.remoteUser}">
+				<li>
+					<h:link outcome="/public/signup" value="Sign Up" />
+				</li>
+			</h:panelGroup>
 		</ul>
 	</ui:insert>
 	
