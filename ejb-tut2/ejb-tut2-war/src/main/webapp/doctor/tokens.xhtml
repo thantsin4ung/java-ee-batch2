@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		
+		<ui:define name="title">Tokens</ui:define>
+		
+		<ui:define name="content">
+			
+			<!-- Take Token -->
+			<h3>Take Token</h3>
+			<h:form>
+			
+				<h:panelGrid columns="2">
+				
+					<h:outputLabel value="Name" />
+					<h:inputText value="#{tokensBean.newToken.name}" />
+					
+					<h:outputLabel value="Date" />
+					<h:inputText value="#{tokensBean.newToken.refDate}" converter="LocalDateConverter" />
+
+					<h:outputLabel value="Time From" />
+					<h:inputText value="#{tokensBean.newToken.timeFrom}" converter="LocalTimeConverter" />
+
+					<h:outputLabel value="Time To" />
+					<h:inputText value="#{tokensBean.newToken.timeTo}" converter="LocalTimeConverter" />
+					
+					<h:panelGroup></h:panelGroup>
+					<h:panelGroup>
+						<h:commandButton action="#{tokensBean.takeToken()}" value="Take Token" />
+					</h:panelGroup>
+
+				</h:panelGrid>
+			
+			</h:form>
+			
+			<!-- Token List -->
+			<h:form>
+				<div>
+					<h:outputLabel value="Reference Date" />
+					<h:inputText value="#{tokensBean.date}" />
+					<h:commandButton actionListener="#{tokensBean.search()}" value="Search" >
+						<f:ajax execute="@form" render="@form"></f:ajax>
+					</h:commandButton>
+				</div>
+				<div>
+					<h:dataTable value="#{tokensBean.tokens}" var="token">
+						<h:column>
+							<f:facet name="header">Date</f:facet>
+							<h:outputText value="#{token.refDate}" converter="LocalDateConverter" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Token Number</f:facet>
+							<h:outputText value="#{token.queueNumber}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Name</f:facet>
+							<h:outputText value="#{token.name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Time From</f:facet>
+							<h:outputText value="#{token.timeFrom}" converter="LocalTimeConverter" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Time To</f:facet>
+							<h:outputText value="#{token.timeTo}" converter="LocalTimeConverter"/>
+						</h:column>
+					</h:dataTable>
+				</div>
+			</h:form>
+		
+		</ui:define>
+	
+	</ui:composition>
+</html>

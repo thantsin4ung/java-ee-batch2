@@ -3,6 +3,7 @@ package com.jdc.sdoctor.producers;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
+import com.jdc.sdoctor.entity.Medicine.Type;
 import com.jdc.sdoctor.entity.Member.Role;
 import com.jdc.sdoctor.entity.PersonalInfo.Gender;
 
@@ -18,5 +19,11 @@ public class CommonProducer {
 	@Named
 	public Gender[] getGenders() {
 		return Gender.values();
+	}
+
+	@Produces
+	@Named
+	public Type[] getMedicineTypes() {
+		return Type.values();
 	}
 }

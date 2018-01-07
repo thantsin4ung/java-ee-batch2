@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.servlet.http.Part;
 
 import com.jdc.sdoctor.entity.Medicine;
 import com.jdc.sdoctor.entity.Medicine.Type;
@@ -51,9 +50,10 @@ public class MedicineModel {
 	}
 
 	@Asynchronous
-	public void uploadFile(Part file) {
-		// TODO Auto-generated method stub
-
+	public void uploadFile(List<Medicine> list) {
+		for (Medicine m : list) {
+			em.persist(m);
+		}
 	}
 
 }

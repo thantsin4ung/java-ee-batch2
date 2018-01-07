@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
@@ -12,11 +13,49 @@
 			
 			<!-- Upload Form -->
 			<h:form enctype="multipart/form-data">
-				<h:inputFile value="" />
-				<h:commandButton action="" value="Upload" />
+				<h:inputFile value="#{medicineListBean.file}" />
+				<h:commandButton action="#{medicineListBean.upload()}" value="Upload" />
+			</h:form>
+			
+			<!-- Search Form -->
+			<h:form>
+				<h:selectOneMenu value="#{medicineListBean.type}">
+					<f:selectItem noSelectionOption="true" itemLabel="All Type" />
+					<f:selectItems value="#{medicineTypes}" var="type" itemLabel="#{type}" itemValue="#{type}" />
+				</h:selectOneMenu>
+				
+				<h:inputText value="#{medicineListBean.company}" p:placeholder="Company Name" />
+
+				<h:inputText value="#{medicineListBean.name}" p:placeholder="Medicine Name" />
+				
+				<h:commandButton actionListener="#{medicineListBean.search()}" value="Search" >
+					<f:ajax execute="@form" render=":resultTable" />
+				</h:commandButton>
 			</h:form>
 			
 			<!-- Result Table -->
+			<h:dataTable id="resultTable" value="#{medicineListBean.list}" var="m">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{m.id}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Type</f:facet>
+					<h:outputText value="#{m.type}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Company</f:facet>
+					<h:outputText value="#{m.company}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{m.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Price</f:facet>
+					<h:outputText value="#{m.unitPrice}" />
+				</h:column>
+			</h:dataTable>
 		
 		</ui:define>
 	

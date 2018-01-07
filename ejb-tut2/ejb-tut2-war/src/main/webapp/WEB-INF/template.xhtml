@@ -9,7 +9,11 @@
 	<link href="../resources/css/semantic.min.css" rel="stylesheet" type="text/css"/>
 	<link href="../resources/css/common.css" rel="stylesheet" type="text/css"/>
 	
+	<h:outputStylesheet library="css" name="semantic.min.css" />
+	<h:outputStylesheet library="css" name="common.css" />
 	
+	<h:outputScript library="js" name="jquery.min.js"></h:outputScript>
+	<h:outputScript library="js" name="semantic.min.js"></h:outputScript>
 	
 </h:head> 
 <body> 
@@ -27,6 +31,9 @@
 				</li>
 				<li>
 					<h:link outcome="/doctor/medicines" value="Medicine Management"/>
+				</li>
+				<li>
+					<h:link outcome="/doctor/tokens" value="Token Management"/>
 				</li>
 			</h:panelGroup>
 			<h:panelGroup rendered="#{request.isUserInRole('Patient') or request.isUserInRole('Staff')}">

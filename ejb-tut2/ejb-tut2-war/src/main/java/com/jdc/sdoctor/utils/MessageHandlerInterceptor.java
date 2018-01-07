@@ -1,5 +1,6 @@
 package com.jdc.sdoctor.utils;
 
+import java.io.Serializable;
 import java.util.Properties;
 
 import javax.faces.application.FacesMessage;
@@ -10,7 +11,9 @@ import javax.interceptor.InvocationContext;
 
 @MessageHandler
 @Interceptor
-public class MessageHandlerInterceptor {
+public class MessageHandlerInterceptor implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Properties props;
 

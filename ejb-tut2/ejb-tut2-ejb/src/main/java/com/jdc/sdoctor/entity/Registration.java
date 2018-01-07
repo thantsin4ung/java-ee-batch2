@@ -18,7 +18,7 @@ public class Registration implements Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 	private long id;
 	@ManyToOne
-	private Member member;
+	private PersonalInfo member;
 	private OpenTime openTime;
 	private int tokenNumber;
 	private LocalDate registDate;
@@ -32,11 +32,11 @@ public class Registration implements Serializable {
 		this.id = id;
 	}
 
-	public Member getMember() {
+	public PersonalInfo getMember() {
 		return member;
 	}
 
-	public void setMember(Member member) {
+	public void setMember(PersonalInfo member) {
 		this.member = member;
 	}
 

@@ -16,6 +16,17 @@ public class Medicine implements Serializable {
 		Oral, Injection, IV, Other
 	}
 
+	public Medicine() {
+	}
+
+	public Medicine(String line) {
+		String[] data = line.split("\t");
+		name = data[0].trim();
+		type = Type.valueOf(data[1].trim());
+		company = data[2].trim();
+		unitPrice = Double.parseDouble(data[3].trim());
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private long id;
