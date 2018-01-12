@@ -14,14 +14,14 @@
 			<!-- Upload Form -->
 			<h:form enctype="multipart/form-data" styleClass="hide">
 				<h:inputFile styleClass="medicineUpload" value="#{medicineListBean.file}" >
-					<f:ajax execute="@form" render=":resultTable" listener="#{medicineListBean.upload()}" />
+					<f:ajax execute="@form" render="@all" listener="#{medicineListBean.upload()}" />
 				</h:inputFile>
 			</h:form>
 			
 			<!-- Search Form -->
 			<h:form styleClass="ui form">
 				
-				<div class="four fields">
+				<div class="five fields">
 					<div class="field">
 						<h:selectOneMenu value="#{medicineListBean.type}" styleClass="ui dropdown">
 							<f:selectItem noSelectionOption="true" itemLabel="All Type" />
@@ -37,19 +37,22 @@
 						<h:inputText value="#{medicineListBean.name}" p:placeholder="Medicine Name" />
 					</div>
 					
-					<div class="field">
-						<h:commandLink actionListener="#{medicineListBean.search()}" styleClass="ui icon left labeled button" >
-							<i class="search icon"></i>
-							Search 
-							<f:ajax execute="@form" render=":resultTable" />
-						</h:commandLink>
-						
-						<button id="uploadButton" class="ui icon left labeled button">
-							<i class="upload icon"></i>
-							Upload
-						</button>
-					</div>
+					<h:commandLink actionListener="#{medicineListBean.search()}" styleClass="ui icon left labeled button" >
+						<i class="search icon"></i>
+						Search 
+						<f:ajax execute="@form" render=":resultTable" />
+					</h:commandLink>
+					
+					<span id="uploadButton" class="ui icon left labeled button">
+						<i class="upload icon"></i>
+						Upload
+					</span>
 				
+					<span id="addNew" class="ui icon left labeled button">
+						<i class="plus icon"></i>
+						Add New
+					</span>
+
 				</div>
 			</h:form>
 			
@@ -80,7 +83,6 @@
 			<script>
 				$(function() {
 					$('#uploadButton').click(function(){
-						console.log("Clicked");
 						$('.medicineUpload').click();
 					});
 				});

@@ -2,76 +2,132 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		
-		<ui:define name="title">Tokens</ui:define>
+		<ui:define name="title"><i class="calendar checked icon"></i> Token Management</ui:define>
 		
 		<ui:define name="content">
 			
 			<!-- Take Token -->
-			<h3>Take Token</h3>
-			<h:form>
-			
-				<h:panelGrid columns="2">
-				
-					<h:outputLabel value="Name" />
-					<h:inputText value="#{tokensBean.newToken.name}" />
-					
-					<h:outputLabel value="Date" />
-					<h:inputText value="#{tokensBean.newToken.refDate}" converter="LocalDateConverter" />
-
-					<h:outputLabel value="Time From" />
-					<h:inputText value="#{tokensBean.newToken.timeFrom}" converter="LocalTimeConverter" />
-
-					<h:outputLabel value="Time To" />
-					<h:inputText value="#{tokensBean.newToken.timeTo}" converter="LocalTimeConverter" />
-					
-					<h:panelGroup></h:panelGroup>
-					<h:panelGroup>
-						<h:commandButton action="#{tokensBean.takeToken()}" value="Take Token" />
-					</h:panelGroup>
-
-				</h:panelGrid>
-			
-			</h:form>
+			<div class="hide">
+				<h3>Take Token</h3>
+			</div>
 			
 			<!-- Token List -->
-			<h:form>
-				<div>
+			<h:form styleClass="ui form">
+				
+				<div class="field">
 					<h:outputLabel value="Reference Date" />
-					<h:inputText value="#{tokensBean.date}" />
-					<h:commandButton actionListener="#{tokensBean.search()}" value="Search" >
-						<f:ajax execute="@form" render="@form"></f:ajax>
-					</h:commandButton>
-				</div>
-				<div>
-					<h:dataTable value="#{tokensBean.tokens}" var="token">
-						<h:column>
-							<f:facet name="header">Date</f:facet>
-							<h:outputText value="#{token.refDate}" converter="LocalDateConverter" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Token Number</f:facet>
-							<h:outputText value="#{token.queueNumber}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Name</f:facet>
-							<h:outputText value="#{token.name}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Time From</f:facet>
-							<h:outputText value="#{token.timeFrom}" converter="LocalTimeConverter" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Time To</f:facet>
-							<h:outputText value="#{token.timeTo}" converter="LocalTimeConverter"/>
-						</h:column>
-					</h:dataTable>
+					<div class="four fields">
+						<div class="field">
+							<div class="ui left icon input">
+								<i class="calendar icon"></i>
+								<h:inputText value="#{tokensBean.date}" p:type="date"/>
+							</div>
+						</div>				
+						<div class="field">
+							<h:commandLink actionListener="#{tokensBean.search()}" styleClass="ui icon labled button" >
+								<f:ajax execute="@form" render=":tokenTable"></f:ajax>
+								<i class="search icon"></i>
+								Search
+							</h:commandLink>
+							<span class="ui icon labled button addToken" >
+								<i class="plus icon"></i>
+								Add New
+							</span>
+						</div>				
+					</div>
+				
 				</div>
 			</h:form>
-		
+			<h:dataTable value="#{tokensBean.tokens}" var="token" id="tokenTable" styleClass="ui celled table #{empty tokensBean.tokens ? 'hide' : ''}">
+				<h:column>
+					<f:facet name="header">Date</f:facet>
+					<h:outputText value="#{token.refDate}" converter="LocalDateConverter" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Token Number</f:facet>
+					<h:outputText value="#{token.queueNumber}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{token.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Time From</f:facet>
+					<h:outputText value="#{token.timeFrom}" converter="LocalTimeConverter" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Time To</f:facet>
+					<h:outputText value="#{token.timeTo}" converter="LocalTimeConverter"/>
+				</h:column>
+			</h:dataTable>
+			
+			<div class="ui modal">
+				<div class="header">
+					<i class="add to calendar icon"></i> Take Token
+				</div>
+				
+				<div class="content">
+					<h:form styleClass="ui form">
+						<div class="two fields">
+							<div class="field">
+								<h:outputLabel value="Name" />
+								<div class="ui left icon input">
+									<i class="user icon"></i>
+									<h:inputText value="#{tokensBean.newToken.name}" />
+								</div>
+							</div>
+						</div>						
+						
+						<div class="three fields">
+					
+							<div class="field">
+								<h:outputLabel value="Date" />
+								<div class="ui left icon input">
+									<i class="calendar icon"></i>
+									<h:inputText value="#{tokensBean.newToken.refDate}" p:type="date" converter="LocalDateConverter" />
+								</div>
+							</div>						
+						
+							<div class="field">
+								<h:outputLabel value="Time From" />
+								<div class="ui left icon input">
+									<i class="clock icon"></i>
+									<h:inputText value="#{tokensBean.newToken.timeFrom}" p:type="time" converter="LocalTimeConverter" />
+								</div>
+							</div>						
+
+							<div class="field">
+								<h:outputLabel value="Time To" />
+								<div class="ui left icon input">
+									<i class="clock icon"></i>
+									<h:inputText value="#{tokensBean.newToken.timeTo}" p:type="time" converter="LocalTimeConverter" />
+								</div>
+							</div>						
+						</div>						
+	
+						<h:commandLink action="#{tokensBean.takeToken()}" styleClass="ui icon right labeled button" >
+							<i class="save icon"></i>
+							Save
+						</h:commandLink>
+					
+					</h:form>
+				
+				</div>
+			</div>
+			
+			<script>
+				$(function() {
+					$('.addToken').click(function() {
+						$('.ui.modal').modal('show');
+					});
+				});
+			</script>
+			
 		</ui:define>
 	
 	</ui:composition>

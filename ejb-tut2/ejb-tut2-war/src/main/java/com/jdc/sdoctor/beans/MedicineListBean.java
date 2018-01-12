@@ -59,6 +59,8 @@ public class MedicineListBean implements Serializable {
 
 			model.uploadFile(list);
 
+			search();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
