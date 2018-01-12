@@ -7,34 +7,54 @@
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		
-		<ui:define name="title">Medicine Management</ui:define>
+		<ui:define name="title"><i class="first aid icon"></i> Medicine Management</ui:define>
 		
 		<ui:define name="content">
 			
 			<!-- Upload Form -->
-			<h:form enctype="multipart/form-data">
-				<h:inputFile value="#{medicineListBean.file}" />
-				<h:commandButton action="#{medicineListBean.upload()}" value="Upload" />
+			<h:form enctype="multipart/form-data" styleClass="hide">
+				<h:inputFile styleClass="medicineUpload" value="#{medicineListBean.file}" >
+					<f:ajax execute="@form" render=":resultTable" listener="#{medicineListBean.upload()}" />
+				</h:inputFile>
 			</h:form>
 			
 			<!-- Search Form -->
-			<h:form>
-				<h:selectOneMenu value="#{medicineListBean.type}">
-					<f:selectItem noSelectionOption="true" itemLabel="All Type" />
-					<f:selectItems value="#{medicineTypes}" var="type" itemLabel="#{type}" itemValue="#{type}" />
-				</h:selectOneMenu>
+			<h:form styleClass="ui form">
 				
-				<h:inputText value="#{medicineListBean.company}" p:placeholder="Company Name" />
-
-				<h:inputText value="#{medicineListBean.name}" p:placeholder="Medicine Name" />
+				<div class="four fields">
+					<div class="field">
+						<h:selectOneMenu value="#{medicineListBean.type}" styleClass="ui dropdown">
+							<f:selectItem noSelectionOption="true" itemLabel="All Type" />
+							<f:selectItems value="#{medicineTypes}" var="type" itemLabel="#{type}" itemValue="#{type}" />
+						</h:selectOneMenu>
+					</div>
+					
+					<div class="field">
+						<h:inputText value="#{medicineListBean.company}" p:placeholder="Company Name" />
+					</div>
+	
+					<div class="field">
+						<h:inputText value="#{medicineListBean.name}" p:placeholder="Medicine Name" />
+					</div>
+					
+					<div class="field">
+						<h:commandLink actionListener="#{medicineListBean.search()}" styleClass="ui icon left labeled button" >
+							<i class="search icon"></i>
+							Search 
+							<f:ajax execute="@form" render=":resultTable" />
+						</h:commandLink>
+						
+						<button id="uploadButton" class="ui icon left labeled button">
+							<i class="upload icon"></i>
+							Upload
+						</button>
+					</div>
 				
-				<h:commandButton actionListener="#{medicineListBean.search()}" value="Search" >
-					<f:ajax execute="@form" render=":resultTable" />
-				</h:commandButton>
+				</div>
 			</h:form>
 			
 			<!-- Result Table -->
-			<h:dataTable id="resultTable" value="#{medicineListBean.list}" var="m">
+			<h:dataTable id="resultTable" value="#{medicineListBean.list}" var="m" styleClass="ui celled table #{empty medicineListBean.list ? 'hide' : ''}" >
 				<h:column>
 					<f:facet name="header">ID</f:facet>
 					<h:outputText value="#{m.id}" />
@@ -56,6 +76,15 @@
 					<h:outputText value="#{m.unitPrice}" />
 				</h:column>
 			</h:dataTable>
+			
+			<script>
+				$(function() {
+					$('#uploadButton').click(function(){
+						console.log("Clicked");
+						$('.medicineUpload').click();
+					});
+				});
+			</script>
 		
 		</ui:define>
 	

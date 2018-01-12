@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -49,7 +48,6 @@ public class MedicineModel {
 		return q.getResultList();
 	}
 
-	@Asynchronous
 	public void uploadFile(List<Medicine> list) {
 		for (Medicine m : list) {
 			em.persist(m);

@@ -22,9 +22,17 @@ public class Token implements Serializable {
 	private LocalDate refDate;
 	private LocalTime timeFrom;
 	private LocalTime timeTo;
-
+	private boolean used;
 	private String name;
 	private int queueNumber;
+
+	public boolean isUsed() {
+		return used;
+	}
+
+	public void setUsed(boolean used) {
+		this.used = used;
+	}
 
 	public long getId() {
 		return id;

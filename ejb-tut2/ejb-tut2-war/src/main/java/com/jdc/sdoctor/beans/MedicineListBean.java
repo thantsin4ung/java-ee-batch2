@@ -16,7 +16,6 @@ import com.jdc.sdoctor.entity.Medicine;
 import com.jdc.sdoctor.entity.Medicine.Type;
 import com.jdc.sdoctor.model.MedicineModel;
 import com.jdc.sdoctor.utils.MessageHandler;
-import com.jdc.sdoctor.utils.SmartDoctorException;
 
 @Named
 @ViewScoped
@@ -46,7 +45,7 @@ public class MedicineListBean implements Serializable {
 	}
 
 	@MessageHandler
-	public String upload() {
+	public void upload() {
 		try (BufferedReader in = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
 
 			List<Medicine> list = new ArrayList<>();
@@ -60,10 +59,8 @@ public class MedicineListBean implements Serializable {
 
 			model.uploadFile(list);
 
-			return "/doctor/medicines?faces-redirect=true";
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new SmartDoctorException("SMDE_0003");
 		}
 	}
 

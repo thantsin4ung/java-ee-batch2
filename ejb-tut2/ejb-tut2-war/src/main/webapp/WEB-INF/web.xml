@@ -41,7 +41,8 @@
 		<web-resource-collection>
 			<web-resource-name>Member Resources</web-resource-name>
 			<url-pattern>/member/*</url-pattern>
-			<http-method>*</http-method>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Patient</role-name>
@@ -54,7 +55,8 @@
 		<web-resource-collection>
 			<web-resource-name>Doctor Resources</web-resource-name>
 			<url-pattern>/doctor/*</url-pattern>
-			<http-method>*</http-method>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Staff</role-name>

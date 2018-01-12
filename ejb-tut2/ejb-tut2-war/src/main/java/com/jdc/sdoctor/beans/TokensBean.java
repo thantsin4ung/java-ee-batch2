@@ -28,6 +28,7 @@ public class TokensBean implements Serializable {
 	public void init() {
 		date = LocalDate.now();
 		newToken = new Token();
+		newToken.setRefDate(LocalDate.now());
 		search();
 	}
 

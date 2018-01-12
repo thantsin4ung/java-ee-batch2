@@ -2,32 +2,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 	
 	
-		<ui:define name="title">Sing In</ui:define>
+		<ui:define name="title"><i class="sign in icon"></i> Sing In</ui:define>
 
 		<ui:define name="menu"></ui:define>
 		
 		<ui:define name="content">
-			<h:form>
-				<h:panelGrid columns="2">
-					<h:outputLabel value="Login Id" />
-					<h:inputText value="#{securityBean.loginId}" />
+		
+			<div class="ui grid">
+				<div class="six wide column">
+					<h:form styleClass="ui form">
 					
-					<h:outputLabel value="Password" />
-					<h:inputSecret value="#{securityBean.password}" />
-					
-					<h:panelGroup></h:panelGroup>
-					<h:panelGroup>
-						<button type="reset">Clear</button>
-						<h:commandButton action="#{securityBean.login()}" value="Sign In" />
-					</h:panelGroup>
-					
-				</h:panelGrid>
-			</h:form>
+						<div class="field">
+							<h:outputLabel value="Login Id" />
+							<div class="ui left icon input">
+								<i class="user icon"></i>				
+								<h:inputText value="#{securityBean.loginId}" p:placeholder="Enter Login ID"/>
+							</div>
+						</div>
+						<div class="field">
+							<h:outputLabel value="Password" />
+							<div class="ui left icon input">
+								<i class="key icon"></i>				
+								<h:inputSecret value="#{securityBean.password}" p:placeholder="Enter Password"/>
+							</div>
+						</div>
+						<button class="ui button icon labeled orange" type="reset">
+							<i class="trash icon"></i>
+							Clear
+						</button>
+						<h:commandLink class="ui button icon labeled purple" action="#{securityBean.login()}" >
+							<i class="sign in icon"></i>
+							Sign In
+						</h:commandLink>
+		
+					</h:form>
+				
+				</div>
+
+			</div>
+
 		</ui:define>
 	
 	</ui:composition>

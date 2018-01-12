@@ -1,3 +1,17 @@
 .whiteSpaceShow {
 	white-space: pre;
 }
+
+.pageContent {
+	margin-top: 80px;
+}
+
+.errorMessage {
+	color: red;
+	list-style: none;
+	margin-left: -2em;
+}
+
+.hide {
+	display: none;
+}
