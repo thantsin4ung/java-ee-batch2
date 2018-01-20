@@ -43,7 +43,6 @@ public class MemberModel {
 	}
 
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
+		em.remove(findById(id));
 	}
 }

@@ -1,19 +1,74 @@
 package com.jdc.client;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class MemberClient {
+	
+	
+	public List<Member> getAll() {
+		
+		Response resp = getTarget()
+				.request(MediaType.APPLICATION_JSON).get();
+		
+		if(resp.getStatus() == 200) {
+			return resp.readEntity(new GenericType<List<Member>>() {});
+		}
+
+		return null;
+	}
+	
+	public Member findById(int id) {
+		
+		Response resp = getTarget()
+				.path(String.valueOf(id))
+				.request(MediaType.APPLICATION_JSON).get();
+		
+		if(resp.getStatus() == 200) {
+			return resp.readEntity(Member.class);
+		}
+		
+		return null;
+	}
+	
+	public List<Member> findByNameLike(String name) {
+		
+		Response resp = getTarget()
+				.path(name)
+				.request(MediaType.APPLICATION_JSON).get();
+		
+		if(resp.getStatus() == 200) {
+			return resp.readEntity(new GenericType<List<Member>>() {});
+		}
+		
+		return null;
+	}
+	
+	public List<Member> findByPhone(String phone) {
+		
+		Response resp = getTarget()
+				.path("phone")
+				.queryParam("phone", phone)
+				.request(MediaType.APPLICATION_JSON)
+				.get();
+		
+		if(resp.getStatus() == 200) {
+			return resp.readEntity(new GenericType<List<Member>>() {});
+		}
+		
+		return null;
+	}	
 
 	public Member create(Member member) {
 		
-		WebTarget target = ClientBuilder.newClient().target("http://localhost:8080/jax-rs/api/member");
-		Response resp = target.request(MediaType.APPLICATION_JSON).post(Entity.json(member));
+		Response resp = getTarget().request(MediaType.APPLICATION_JSON).post(Entity.json(member));
 		
 		if(201 == resp.getStatus()) {
 			URI location =resp.getLocation();
@@ -25,14 +80,24 @@ public class MemberClient {
 		return null;
 	}
 	
-	public static void main(String[] args) {
-		Member member = new Member();
-		member.setName("Kyaw Htoo");
-		member.setPhone("0987667888");
-		member.setEmail("kyaw@gmail.com");
+	public int update(Member member) {
 		
-		MemberClient client = new MemberClient();
-		Member result = client.create(member);
-		System.out.println(result.getId());
+		Response resp = getTarget().request(MediaType.APPLICATION_JSON).put(Entity.json(member));
+		return resp.getStatus();
+	
 	}
+	
+	public int delete(int id) {
+		return getTarget()
+				.path(String.valueOf(id))
+				.request().delete().getStatus();
+	}
+	
+	private WebTarget getTarget() {
+		String baseUrl = "http://localhost:8080/jax-rs/api/member/";
+		
+		return ClientBuilder.newClient().target(baseUrl);
+	}
+
+
 }
